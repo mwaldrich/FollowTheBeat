@@ -1,7 +1,8 @@
 package;
 
 class MapSegment {
-	private var hazardList:List<Hazard>;
+	// TODO: all of these should be private
+	public var hazardList:List<Hazard>;
 
 	public var offsetY:Int;
 	public var width:Int;
@@ -19,8 +20,8 @@ class MapSegment {
 	}
 
 	// Is the given coordinate within the bounds of this 
-	public function isWithinBounds(coordinate:Coordinate) {
-		return coordinate.isWithinBounds(0, this.offsetY, this.width, this.height);
+	public function isWithinBounds(coordinate:Coordinate, beat:Int) {
+		return coordinate.isWithinBounds(0, BeatUtils.minimumY(beat), this.width, this.height);
 	}
 
 	public function isDamaging(location:Coordinate, beat:Int):Bool {
@@ -49,5 +50,45 @@ class MapSegment {
 		}
 
 		return accumulated;
+	}
+
+	// Is the given coordinate occupied by any hazard?
+	public function isOccupied(location:Coordinate):Bool {
+		for (hazard in this.hazardList) {
+			if (hazard.isOccupying(location)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// What is the overall difficulty of this level?
+	public function getDifficulty():Float {
+		var accumulatedDifficulty:Float = 0.0;
+
+		for (hazard in this.hazardList) {
+			accumulatedDifficulty += hazard.getDifficulty();
+		}
+
+		return accumulatedDifficulty;
+	}
+
+	public function getDifficultyBetweenRows(minY:Int, maxY:Int):Float {
+		var accumulatedDifficulty:Float = 0.0;
+
+		for (hazard in this.hazardList) {
+			accumulatedDifficulty += hazard.getDifficultyBetweenRows(minY, maxY);
+		}
+
+		return accumulatedDifficulty;
+	}
+
+	public function toString():String {
+		var result:String = "";
+
+		result += "{offsetY: " + this.offsetY + "\nwidth: " + this.width + "\nheight: " + this.height + "\nhazardList: " + this.hazardList + "\n}";
+
+		return result;
 	}
 }

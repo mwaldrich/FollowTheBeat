@@ -3,7 +3,7 @@ package;
 /**
  * Utility class for working with Directions.
  */
-class Directions {
+class DirectionUtils {
 	public static function flip(direction:Direction) {
 		return switch (direction) {
 			case Up: Direction.Down;
@@ -23,8 +23,8 @@ class Directions {
 
 	public static function manipulateY(y:Int, direction:Direction):Int {
 		return switch(direction) {
-			case Up: y - 1;
-			case Down: y + 1;
+			case Up: y + 1;
+			case Down: y - 1;
 			default: y;
 		}
 	}

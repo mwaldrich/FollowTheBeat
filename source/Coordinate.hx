@@ -1,5 +1,7 @@
 package;
 
+import flixel.math.FlxRandom;
+
 class Coordinate {
 	public var x:Int;
 	public var y:Int;
@@ -26,6 +28,17 @@ class Coordinate {
 	// Return a new coordinate that is the result of
 	// "moving" the given direction.
 	public function manipulate(direction:Direction) {
-		return new Coordinate(Directions.manipulateX(this.x, direction), Directions.manipulateY(this.y, direction));
+		return new Coordinate(DirectionUtils.manipulateX(this.x, direction), DirectionUtils.manipulateY(this.y, direction));
+	}
+
+	public function toString():String {
+		return "(" + this.x + ", " + this.y + ")";
+	}
+
+	public static function generateRandomCoordinate(minX:Int, minY:Int, maxX:Int, maxY:Int, random:FlxRandom):Coordinate {
+		var x = random.int(minX, maxX);
+		var y = random.int(minY, maxY);
+
+		return new Coordinate(x, y);
 	}
 }

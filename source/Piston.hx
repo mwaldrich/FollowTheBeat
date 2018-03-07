@@ -7,6 +7,11 @@ class Piston implements Hazard {
 	// What direction does this piston shoot?
 	private var direction:Coordinate;
 
+	public function new(location:Coordinate, direction:Direction) {
+		this.location = location;
+		this.direction = direction;
+	}
+
 	public function getLocation():Coordinate {
 		return this.location;
 	}
