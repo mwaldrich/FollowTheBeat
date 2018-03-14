@@ -37,4 +37,7 @@ interface Hazard {
 	// of the y-axis is at the bottom. minY is inclusive and maxY is
 	// exclusive.
 	public function getDifficultyBetweenRows(minY:Int, maxY:Int):Float;
+
+	// Generates a GameHazard that corresponds with this Hazard.
+	public function generateGameHazard():AGameHazard;
 }

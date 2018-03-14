@@ -5,9 +5,10 @@ class Piston implements Hazard {
 	private var location:Coordinate;
 
 	// What direction does this piston shoot?
-	private var direction:Coordinate;
+	private var direction:Direction;
 
 	public function new(location:Coordinate, direction:Direction) {
+		super();
 		this.location = location;
 		this.direction = direction;
 	}
@@ -20,12 +21,19 @@ class Piston implements Hazard {
 		return (this.location.equals(location))
 			|| (this.location.manipulate(this.direction)
 			        .equals(location)
-			    && ((beat % this.timing)
-				     == (this.timing - 1)));
+			&& this.isExtended(beat));
 	}
 
 	public function isValid(segment:MapSegment):Bool {
 		return segment.isWithinBounds(this.location)
 			&& segment.isWithinBounds(this.location.manipulate(this.direction));
+	}
+
+	public function isExtended(beat:Int):Bool {
+		return ((beat % this.timing) == (this.timing - 1));
+	}
+
+	public function generateGameHazard():AGameHazard {
+		return new GamePiston(this);
 	}
 }

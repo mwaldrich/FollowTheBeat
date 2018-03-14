@@ -62,6 +62,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		Font.registerFont (__ASSET__assets_data_eightbitwonder_ttf);
+		
+		
+		
+		
 		Font.registerFont (__ASSET__flixel_fonts_nokiafc22_ttf);
 		Font.registerFont (__ASSET__flixel_fonts_monsterrat_ttf);
 		
@@ -71,6 +76,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -507,11 +517,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+@:keep class __ASSET__assets_data_eightbitwonder_ttf extends openfl.text.Font { public function new () { super (); __fontPath = "assets/data/EIGHTBITWONDER.ttf"; fontName = "8BIT WONDER Nominal"; }}
 
 
 #else
 
 
+class __ASSET__assets_data_eightbitwonder_ttf extends openfl.text.Font { public function new () { super (); __fontPath = "assets/data/EIGHTBITWONDER.ttf"; fontName = "8BIT WONDER Nominal";  }}
 class __ASSET__flixel_fonts_nokiafc22_ttf extends openfl.text.Font { public function new () { super (); __fontPath = "flixel/fonts/nokiafc22.ttf"; fontName = "Nokia Cellphone FC Small";  }}
 class __ASSET__flixel_fonts_monsterrat_ttf extends openfl.text.Font { public function new () { super (); __fontPath = "flixel/fonts/monsterrat.ttf"; fontName = "Monsterrat";  }}
 
@@ -582,6 +594,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		openfl.text.Font.registerFont (__ASSET__OPENFL__assets_data_eightbitwonder_ttf);
+		
+		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -591,14 +608,24 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#if flash
 		
-		path.set ("assets/images/images-go-here.txt", "assets/images/images-go-here.txt");
-		type.set ("assets/images/images-go-here.txt", AssetType.TEXT);
-		path.set ("assets/data/data-goes-here.txt", "assets/data/data-goes-here.txt");
-		type.set ("assets/data/data-goes-here.txt", AssetType.TEXT);
-		path.set ("assets/sounds/sounds-go-here.txt", "assets/sounds/sounds-go-here.txt");
-		type.set ("assets/sounds/sounds-go-here.txt", AssetType.TEXT);
-		path.set ("assets/music/music-goes-here.txt", "assets/music/music-goes-here.txt");
-		type.set ("assets/music/music-goes-here.txt", AssetType.TEXT);
+		path.set ("assets/images/character.png", "assets/images/character.png");
+		type.set ("assets/images/character.png", AssetType.IMAGE);
+		path.set ("assets/images/piston.png", "assets/images/piston.png");
+		type.set ("assets/images/piston.png", AssetType.IMAGE);
+		path.set ("assets/images/arrow.png", "assets/images/arrow.png");
+		type.set ("assets/images/arrow.png", AssetType.IMAGE);
+		path.set ("assets/images/tile.png", "assets/images/tile.png");
+		type.set ("assets/images/tile.png", AssetType.IMAGE);
+		path.set ("assets/images/bomb.png", "assets/images/bomb.png");
+		type.set ("assets/images/bomb.png", AssetType.IMAGE);
+		path.set ("assets/images/title.png", "assets/images/title.png");
+		type.set ("assets/images/title.png", AssetType.IMAGE);
+		path.set ("assets/data/EIGHTBITWONDER.ttf", "assets/data/EIGHTBITWONDER.ttf");
+		type.set ("assets/data/EIGHTBITWONDER.ttf", AssetType.FONT);
+		path.set ("assets/data/EIGHTBITWONDER.txt", "assets/data/EIGHTBITWONDER.txt");
+		type.set ("assets/data/EIGHTBITWONDER.txt", AssetType.TEXT);
+		path.set ("assets/data/README.TXT", "assets/data/README.TXT");
+		type.set ("assets/data/README.TXT", AssetType.TEXT);
 		className.set ("flixel/sounds/beep.ogg", __ASSET__flixel_sounds_beep_ogg);
 		type.set ("flixel/sounds/beep.ogg", AssetType.SOUND);
 		className.set ("flixel/sounds/flixel.ogg", __ASSET__flixel_sounds_flixel_ogg);
@@ -616,16 +643,31 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#elseif html5
 		
 		var id;
-		id = "assets/images/images-go-here.txt";
+		id = "assets/images/character.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/piston.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/arrow.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/tile.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/bomb.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/title.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/data/EIGHTBITWONDER.ttf";
+		path.set (id, id);
+		type.set (id, AssetType.FONT);
+		id = "assets/data/EIGHTBITWONDER.txt";
 		path.set (id, id);
 		type.set (id, AssetType.TEXT);
-		id = "assets/data/data-goes-here.txt";
-		path.set (id, id);
-		type.set (id, AssetType.TEXT);
-		id = "assets/sounds/sounds-go-here.txt";
-		path.set (id, id);
-		type.set (id, AssetType.TEXT);
-		id = "assets/music/music-goes-here.txt";
+		id = "assets/data/README.TXT";
 		path.set (id, id);
 		type.set (id, AssetType.TEXT);
 		id = "flixel/sounds/beep.ogg";
@@ -671,6 +713,13 @@ class DefaultAssetLibrary extends AssetLibrary {
 		var useManifest = false;
 		useManifest = true;
 		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		
+		className.set ("assets/data/EIGHTBITWONDER.ttf", __ASSET__assets_data_eightbitwonder_ttf);
+		type.set ("assets/data/EIGHTBITWONDER.ttf", AssetType.FONT);
 		useManifest = true;
 		useManifest = true;
 		
@@ -1413,6 +1462,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
+
 @:keep @:bind #if display private #end class __ASSET__flixel_sounds_beep_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__flixel_sounds_flixel_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends null { }
@@ -1429,6 +1483,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+@:keep #if display private #end class __ASSET__assets_data_eightbitwonder_ttf extends lime.text.Font { public function new () { super (); name = "8BIT WONDER Nominal"; } } 
+
+
+
+
 @:keep #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font { public function new () { super (); name = "Nokia Cellphone FC Small"; } } 
 @:keep #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font { public function new () { super (); name = "Monsterrat"; } } 
 
@@ -1437,6 +1496,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 #else
 
+@:keep #if display private #end class __ASSET__assets_data_eightbitwonder_ttf extends lime.text.Font { public function new () { __fontPath = #if ios "assets/" + #end "assets/data/EIGHTBITWONDER.ttf"; name = "8BIT WONDER Nominal"; super (); }}
 
 
 #if (windows || mac || linux || cpp)
@@ -1455,6 +1515,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 #end
 
 #if (openfl && !flash)
+@:keep #if display private #end class __ASSET__OPENFL__assets_data_eightbitwonder_ttf extends openfl.text.Font { public function new () { __fontPath = #if ios "assets/" + #end "assets/data/EIGHTBITWONDER.ttf"; name = "8BIT WONDER Nominal"; super (); }}
 @:keep #if display private #end class __ASSET__OPENFL__flixel_fonts_nokiafc22_ttf extends openfl.text.Font { public function new () { var font = new __ASSET__flixel_fonts_nokiafc22_ttf (); src = font.src; name = font.name; super (); }}
 @:keep #if display private #end class __ASSET__OPENFL__flixel_fonts_monsterrat_ttf extends openfl.text.Font { public function new () { var font = new __ASSET__flixel_fonts_monsterrat_ttf (); src = font.src; name = font.name; super (); }}
 

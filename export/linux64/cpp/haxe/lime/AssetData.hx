@@ -16,14 +16,24 @@ class AssetData {
 		
 		if (!initialized) {
 			
-			path.set ("assets/images/images-go-here.txt", "assets/images/images-go-here.txt");
-			type.set ("assets/images/images-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
-			path.set ("assets/data/data-goes-here.txt", "assets/data/data-goes-here.txt");
-			type.set ("assets/data/data-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
-			path.set ("assets/sounds/sounds-go-here.txt", "assets/sounds/sounds-go-here.txt");
-			type.set ("assets/sounds/sounds-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
-			path.set ("assets/music/music-goes-here.txt", "assets/music/music-goes-here.txt");
-			type.set ("assets/music/music-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+			path.set ("assets/images/character.png", "assets/images/character.png");
+			type.set ("assets/images/character.png", Reflect.field (AssetType, "image".toUpperCase ()));
+			path.set ("assets/images/piston.png", "assets/images/piston.png");
+			type.set ("assets/images/piston.png", Reflect.field (AssetType, "image".toUpperCase ()));
+			path.set ("assets/images/arrow.png", "assets/images/arrow.png");
+			type.set ("assets/images/arrow.png", Reflect.field (AssetType, "image".toUpperCase ()));
+			path.set ("assets/images/tile.png", "assets/images/tile.png");
+			type.set ("assets/images/tile.png", Reflect.field (AssetType, "image".toUpperCase ()));
+			path.set ("assets/images/bomb.png", "assets/images/bomb.png");
+			type.set ("assets/images/bomb.png", Reflect.field (AssetType, "image".toUpperCase ()));
+			path.set ("assets/images/title.png", "assets/images/title.png");
+			type.set ("assets/images/title.png", Reflect.field (AssetType, "image".toUpperCase ()));
+			path.set ("assets/data/EIGHTBITWONDER.ttf", "assets/data/EIGHTBITWONDER.ttf");
+			type.set ("assets/data/EIGHTBITWONDER.ttf", Reflect.field (AssetType, "font".toUpperCase ()));
+			path.set ("assets/data/EIGHTBITWONDER.txt", "assets/data/EIGHTBITWONDER.txt");
+			type.set ("assets/data/EIGHTBITWONDER.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+			path.set ("assets/data/README.TXT", "assets/data/README.TXT");
+			type.set ("assets/data/README.TXT", Reflect.field (AssetType, "text".toUpperCase ()));
 			path.set ("flixel/sounds/beep.ogg", "flixel/sounds/beep.ogg");
 			type.set ("flixel/sounds/beep.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
 			path.set ("flixel/sounds/flixel.ogg", "flixel/sounds/flixel.ogg");
