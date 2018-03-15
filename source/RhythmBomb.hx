@@ -21,7 +21,7 @@ class RhythmBomb implements Hazard {
 	}
 
 	public function isDamaging(location:Coordinate, beat:Int):Bool {
-		return this.isExploding()
+		return this.isExploding(beat)
 			&& this.location.equals(location);
 	}
 
@@ -47,6 +47,10 @@ class RhythmBomb implements Hazard {
 		} else {
 			return 0.0;
 		}
+	}
+
+	public function generateGameHazard(conductor:Conductor):GameHazard {
+		return new GameRhythmBomb(this, conductor);
 	}
 
 	public function toString():String {

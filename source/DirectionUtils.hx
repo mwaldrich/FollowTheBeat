@@ -1,5 +1,7 @@
 package;
 
+import flixel.FlxObject;
+
 /**
  * Utility class for working with Directions.
  */
@@ -26,6 +28,15 @@ class DirectionUtils {
 			case Up: y + 1;
 			case Down: y - 1;
 			default: y;
+		}
+	}
+
+	public static function toFlxDirection(direction:Direction):Int {
+		return switch(direction) {
+			case Up: FlxObject.UP;
+			case Down: FlxObject.DOWN;
+			case Left: FlxObject.LEFT;
+			case Right: FlxObject.RIGHT;
 		}
 	}
 }

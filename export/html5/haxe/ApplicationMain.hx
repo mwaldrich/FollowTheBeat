@@ -30,20 +30,108 @@ class ApplicationMain {
 		var types = [];
 		
 		
-		urls.push ("assets/images/images-go-here.txt");
+		urls.push ("assets/images/bomb.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/character.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/tile.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/piston.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/title.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/arrow.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/data/EIGHTBITWONDER.txt");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/data-goes-here.txt");
+		urls.push ("assets/data/song5.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
+		urls.push ("assets/data/song4.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
+		urls.push ("assets/data/song1.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
+		urls.push ("8BIT WONDER Nominal");
+		types.push (lime.Assets.AssetType.FONT);
+		
+		
+		urls.push ("assets/data/EIGHTBITWONDER.eot");
+		types.push (lime.Assets.AssetType.BINARY);
+		
+		
+		urls.push ("assets/data/song6.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
+		urls.push ("assets/data/song5.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
+		urls.push ("assets/data/song3.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
+		urls.push ("assets/data/song2.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
+		urls.push ("assets/data/EIGHTBITWONDER.svg");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/sounds/sounds-go-here.txt");
+		urls.push ("assets/data/EIGHTBITWONDER.woff");
+		types.push (lime.Assets.AssetType.BINARY);
+		
+		
+		urls.push ("assets/data/song4.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
+		urls.push ("assets/data/death.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
+		urls.push ("assets/data/song3.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
+		urls.push ("assets/data/README.TXT");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/music/music-goes-here.txt");
-		types.push (lime.Assets.AssetType.TEXT);
+		urls.push ("assets/data/song6.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
+		urls.push ("assets/data/death.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
+		urls.push ("assets/data/song1.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
+		urls.push ("assets/data/song2.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
 		
 		
 		urls.push ("flixel/sounds/beep.ogg");
@@ -131,7 +219,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "70",
+			build: "303",
 			company: "HaxeFlixel",
 			file: "FollowTheBeat",
 			fps: 60,
@@ -149,13 +237,13 @@ class ApplicationMain {
 					display: 0,
 					fullscreen: false,
 					hardware: false,
-					height: 480,
+					height: 640,
 					parameters: "{}",
 					resizable: false,
 					stencilBuffer: true,
 					title: "FollowTheBeat",
 					vsync: true,
-					width: 640,
+					width: 360,
 					x: null,
 					y: null
 				},
@@ -173,7 +261,7 @@ class ApplicationMain {
 		
 		#if (js && html5)
 		#if (munit || utest)
-		openfl.Lib.embed (null, 640, 480, "000000");
+		openfl.Lib.embed (null, 360, 640, "000000");
 		#end
 		#else
 		create ();

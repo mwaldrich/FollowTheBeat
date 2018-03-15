@@ -35,6 +35,10 @@ class Coordinate {
 		return "(" + this.x + ", " + this.y + ")";
 	}
 
+	public function isBetweenRows(minY:Int, maxY:Int):Bool {
+		return this.y >= minY && this.y < maxY;
+	}
+
 	public static function generateRandomCoordinate(minX:Int, minY:Int, maxX:Int, maxY:Int, random:FlxRandom):Coordinate {
 		var x = random.int(minX, maxX);
 		var y = random.int(minY, maxY);
