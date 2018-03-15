@@ -5,12 +5,12 @@ class GameRhythmBomb extends GameHazard {
 	private var rhythmBomb:RhythmBomb;
 	private var conductor:Conductor;
 
-	private var isExploding:Bool;
+	private var lastExplodedBeat:Int;
 
 	public function new(rhythmBomb:RhythmBomb, conductor:Conductor) {
 		this.rhythmBomb = rhythmBomb;
 		this.conductor = conductor;
-		this.isExploding = false;
+		this.lastExplodedBeat = -1;
 
 		super(rhythmBomb.getLocation().x, rhythmBomb.getLocation().y);
 
@@ -29,14 +29,16 @@ class GameRhythmBomb extends GameHazard {
 		var currentBeat:Int = conductor.getCurrentBeat();
 
 		if (this.rhythmBomb.isExploding(currentBeat)) {
-			if (!this.isExploding) {
+			if (this.lastExplodedBeat < currentBeat) {
 				animation.play("explode");
-				this.isExploding = true;
+				this.lastExplodedBeat = currentBeat;
+				trace("Animation started");
 			}
 		} else {
 			animation.play("normal");
-			this.isExploding = false;
 		}
+
+		// TODO: abstract this up into GameHazard
 
 		super.update(elapsed);
 	}

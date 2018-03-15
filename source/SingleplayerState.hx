@@ -27,7 +27,7 @@ class SingleplayerState extends FlxState implements Conductor {
 		this.currentBeat = 0;
 
 		song = new FlxSound();
-		song.loadEmbedded(AssetPaths.song2__ogg);
+		song.loadEmbedded(AssetPaths.song1__ogg);
 		add(song);
 		song.play();
 	}
