@@ -11,9 +11,14 @@ class RhythmBomb implements Hazard {
 	// CANNOT be 0.
 	private var timing:Int;
 
-	public function new(location:Coordinate, timing:Int) {
+	// How many beats should this Rhythm Bomb be offset from its
+	// natural rhythm? Must be less than timing.
+	private var offset:Int;
+
+	public function new(location:Coordinate, timing:Int, ?offset:Int = 0) {
 		this.location = location;
 		this.timing = timing;
+		this.offset = offset;
 	}
 
 	public function getLocation():Coordinate {
@@ -34,7 +39,7 @@ class RhythmBomb implements Hazard {
 	}
 
 	public function isExploding(beat:Int):Bool {
-		return ((beat % this.timing) == (this.timing - 1));
+		return (beat % this.timing) == this.offset;
 	}
 
 	public function getDifficulty():Float {

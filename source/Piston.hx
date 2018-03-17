@@ -9,13 +9,16 @@ class Piston implements Hazard {
 
 	private var timing:Int;
 
+	private var offset:Int;
+
 	// What location does the head of this piston extend into?
 	private var extendedLocation:Coordinate;
 
-	public function new(location:Coordinate, direction:Direction, timing:Int) {
+	public function new(location:Coordinate, direction:Direction, timing:Int, ?offset:Int = 0) {
 		this.location = location;
 		this.direction = direction;
 		this.timing = timing;
+		this.offset = offset;
 		this.extendedLocation = this.location.manipulate(this.direction);
 	}
 
@@ -71,7 +74,7 @@ class Piston implements Hazard {
 	}
 
 	public function isExtended(beat:Int):Bool {
-		return ((beat % this.timing) == (this.timing - 1));
+		return (beat % this.timing) == this.offset;
 	}
 
 	public function generateGameHazard(conductor:Conductor):GameHazard {

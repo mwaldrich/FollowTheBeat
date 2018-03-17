@@ -79,6 +79,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -120,8 +122,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/song3.mp3", AssetType.MUSIC);
 		className.set ("assets/data/song2.mp3", __ASSET__assets_data_song2_mp3);
 		type.set ("assets/data/song2.mp3", AssetType.MUSIC);
+		className.set ("assets/data/practice.mp3", __ASSET__assets_data_practice_mp3);
+		type.set ("assets/data/practice.mp3", AssetType.MUSIC);
 		className.set ("assets/data/EIGHTBITWONDER.svg", __ASSET__assets_data_eightbitwonder_svg);
 		type.set ("assets/data/EIGHTBITWONDER.svg", AssetType.TEXT);
+		className.set ("assets/data/practice.ogg", __ASSET__assets_data_practice_ogg);
+		type.set ("assets/data/practice.ogg", AssetType.SOUND);
 		className.set ("assets/data/EIGHTBITWONDER.woff", __ASSET__assets_data_eightbitwonder_woff);
 		type.set ("assets/data/EIGHTBITWONDER.woff", AssetType.BINARY);
 		className.set ("assets/data/song4.mp3", __ASSET__assets_data_song4_mp3);
@@ -221,10 +227,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.MUSIC);
+		id = "assets/data/practice.mp3";
+		path.set (id, id);
+		
+		type.set (id, AssetType.MUSIC);
 		id = "assets/data/EIGHTBITWONDER.svg";
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
+		id = "assets/data/practice.ogg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.SOUND);
 		id = "assets/data/EIGHTBITWONDER.woff";
 		path.set (id, id);
 		
@@ -351,8 +365,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/data/song2.mp3", __ASSET__assets_data_song2_mp3);
 		type.set ("assets/data/song2.mp3", AssetType.MUSIC);
 		
+		className.set ("assets/data/practice.mp3", __ASSET__assets_data_practice_mp3);
+		type.set ("assets/data/practice.mp3", AssetType.MUSIC);
+		
 		className.set ("assets/data/EIGHTBITWONDER.svg", __ASSET__assets_data_eightbitwonder_svg);
 		type.set ("assets/data/EIGHTBITWONDER.svg", AssetType.TEXT);
+		
+		className.set ("assets/data/practice.ogg", __ASSET__assets_data_practice_ogg);
+		type.set ("assets/data/practice.ogg", AssetType.SOUND);
 		
 		className.set ("assets/data/EIGHTBITWONDER.woff", __ASSET__assets_data_eightbitwonder_woff);
 		type.set ("assets/data/EIGHTBITWONDER.woff", AssetType.BINARY);
@@ -1059,7 +1079,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_data_song5_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_song3_mp3 extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_song2_mp3 extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_practice_mp3 extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_eightbitwonder_svg extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_practice_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_eightbitwonder_woff extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_song4_mp3 extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_death_ogg extends null { }
@@ -1107,6 +1129,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
 @:keep #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font { public function new () { super (); name = "Nokia Cellphone FC Small"; } } 
 @:keep #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font { public function new () { super (); name = "Monsterrat"; } } 
 
@@ -1136,7 +1160,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/data/song5.ogg") #if display private #end class __ASSET__assets_data_song5_ogg extends lime.utils.Bytes {}
 @:file("assets/data/song3.mp3") #if display private #end class __ASSET__assets_data_song3_mp3 extends lime.utils.Bytes {}
 @:file("assets/data/song2.mp3") #if display private #end class __ASSET__assets_data_song2_mp3 extends lime.utils.Bytes {}
+@:file("assets/data/practice.mp3") #if display private #end class __ASSET__assets_data_practice_mp3 extends lime.utils.Bytes {}
 @:file("assets/data/EIGHTBITWONDER.svg") #if display private #end class __ASSET__assets_data_eightbitwonder_svg extends lime.utils.Bytes {}
+@:file("assets/data/practice.ogg") #if display private #end class __ASSET__assets_data_practice_ogg extends lime.utils.Bytes {}
 @:file("assets/data/EIGHTBITWONDER.woff") #if display private #end class __ASSET__assets_data_eightbitwonder_woff extends lime.utils.Bytes {}
 @:file("assets/data/song4.mp3") #if display private #end class __ASSET__assets_data_song4_mp3 extends lime.utils.Bytes {}
 @:file("assets/data/death.ogg") #if display private #end class __ASSET__assets_data_death_ogg extends lime.utils.Bytes {}

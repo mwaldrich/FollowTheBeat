@@ -94,8 +94,16 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
+		urls.push ("assets/data/practice.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
+		
+		
 		urls.push ("assets/data/EIGHTBITWONDER.svg");
 		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/practice.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
 		
 		
 		urls.push ("assets/data/EIGHTBITWONDER.woff");
@@ -219,7 +227,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "303",
+			build: "375",
 			company: "HaxeFlixel",
 			file: "FollowTheBeat",
 			fps: 60,

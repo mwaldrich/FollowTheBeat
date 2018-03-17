@@ -5,6 +5,8 @@ import flixel.group.FlxGroup;
 import flixel.FlxG;
 import flixel.system.FlxSound;
 
+import flixel.tile.FlxTilemap;
+
 class SingleplayerState extends FlxState implements Conductor {
 	private var segments:List<GameMapSegment>;
 	private var segmentsToRender:FlxTypedGroup<GameMapSegment>;
@@ -27,9 +29,9 @@ class SingleplayerState extends FlxState implements Conductor {
 		this.currentBeat = 0;
 
 		song = new FlxSound();
-		song.loadEmbedded(AssetPaths.song1__ogg);
+		song.loadEmbedded(AssetPaths.song3__ogg);
 		add(song);
-		song.play();
+		//song.play();
 	}
 
 	override public function update(elapsed:Float):Void {

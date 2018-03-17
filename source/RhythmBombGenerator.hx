@@ -5,6 +5,7 @@ import flixel.math.FlxRandom;
 class RhythmBombGenerator implements HazardGenerator {
 	public function new() {}
 
+	// TODO: update to take advantage of the offset feature
 	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):Hazard {
 		// We are currently only generating Rhythm Bombs that explode
 		// either every 4 beats or every 2 beats. This means the
