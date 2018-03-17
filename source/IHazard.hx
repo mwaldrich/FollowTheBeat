@@ -1,6 +1,6 @@
 package;
 
-interface Hazard {
+interface IHazard {
 	// What is the main location of this hazard? This is measured
 	// as an absolute coordinate.
 	public function getLocation():Coordinate;
@@ -39,5 +39,5 @@ interface Hazard {
 	public function getDifficultyBetweenRows(minY:Int, maxY:Int):Float;
 
 	// Generates a GameHazard that corresponds with this Hazard.
-	public function generateGameHazard(conductor:Conductor):GameHazard;
+	public function generateGameHazard(conductor:IConductor):AGameHazard;
 }

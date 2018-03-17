@@ -1,38 +1,31 @@
 package;
 
-class GameRhythmBomb extends GameHazard {
+class GameRhythmBomb extends AGameHazard {
 	
 	private var rhythmBomb:RhythmBomb;
+	private var rhythmBombSprite:GameRhythmBombSprite;
 
-	public function new(rhythmBomb:RhythmBomb, conductor:Conductor) {
+	public function new(rhythmBomb:RhythmBomb, conductor:IConductor) {
+		super(conductor);
+
 		this.rhythmBomb = rhythmBomb;
 		this.conductor = conductor;
-
-		super(rhythmBomb.getLocation().x, rhythmBomb.getLocation().y, conductor);
-
-		// Load rhythm bomb spritesheet
-		loadGraphic(AssetPaths.bomb__png, true, 32, 32);
-
-		trace("" + this.x + ", " + this.y);
-		trace("" + this.width + ", " + this.height);
-		trace("" + this.origin.toString());
-
-		// Set up animations
-		animation.add("normal", [0], 1, false);
-		animation.add("explode", [1, 2, 0], Main.animationFPS, false);
-
-		animation.play("normal");
+		this.rhythmBombSprite = new GameRhythmBombSprite(rhythmBomb.getLocation().x, rhythmBomb.getLocation().y);
 	}
 
-	public override function getHazard():Hazard {
+	public override function getHazard():IHazard {
 		return this.rhythmBomb;
 	}
 
-	public override function activate(newBeat:Int):Void {
+	public override function beat(newBeat:Int):Void {
 		if (this.rhythmBomb.isExploding(newBeat)) {
-			animation.play("explode", true);
+			rhythmBombSprite.activate(newBeat);
 		} else {
-			animation.play("normal", true);
+			rhythmBombSprite.deactivate(newBeat);
 		}
+	}
+
+	public override function getPieces():Array<AGameSprite> {
+		return [rhythmBombSprite];
 	}
 }

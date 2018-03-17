@@ -1,6 +1,6 @@
 package;
 
-class RhythmBomb implements Hazard {
+class RhythmBomb implements IHazard {
 	// The location of this rhythm bomb
 	private var location:Coordinate;
 
@@ -54,7 +54,7 @@ class RhythmBomb implements Hazard {
 		}
 	}
 
-	public function generateGameHazard(conductor:Conductor):GameHazard {
+	public function generateGameHazard(conductor:IConductor):AGameHazard {
 		return new GameRhythmBomb(this, conductor);
 	}
 

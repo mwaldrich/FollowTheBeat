@@ -2,7 +2,7 @@ package;
 
 class MapSegment {
 	// TODO: all of these should be private
-	public var hazardList:List<Hazard>;
+	public var hazardList:List<IHazard>;
 
 	public var offsetY:Int;
 	public var width:Int;
@@ -12,10 +12,10 @@ class MapSegment {
 		this.offsetY = offsetY;
 		this.width = width;
 		this.height = height;
-		this.hazardList = new List<Hazard>();
+		this.hazardList = new List<IHazard>();
 	}
 
-	public function addHazard(hazard:Hazard):Void {
+	public function addHazard(hazard:IHazard):Void {
 		hazardList.add(hazard);
 	}
 

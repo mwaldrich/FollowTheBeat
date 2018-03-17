@@ -81,6 +81,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -130,6 +131,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/practice.ogg", AssetType.SOUND);
 		className.set ("assets/data/EIGHTBITWONDER.woff", __ASSET__assets_data_eightbitwonder_woff);
 		type.set ("assets/data/EIGHTBITWONDER.woff", AssetType.BINARY);
+		className.set ("assets/data/song1x.ogg", __ASSET__assets_data_song1x_ogg);
+		type.set ("assets/data/song1x.ogg", AssetType.SOUND);
 		className.set ("assets/data/song4.mp3", __ASSET__assets_data_song4_mp3);
 		type.set ("assets/data/song4.mp3", AssetType.MUSIC);
 		className.set ("assets/data/death.ogg", __ASSET__assets_data_death_ogg);
@@ -243,6 +246,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.BINARY);
+		id = "assets/data/song1x.ogg";
+		path.set (id, id);
+		
+		type.set (id, AssetType.SOUND);
 		id = "assets/data/song4.mp3";
 		path.set (id, id);
 		
@@ -376,6 +383,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/data/EIGHTBITWONDER.woff", __ASSET__assets_data_eightbitwonder_woff);
 		type.set ("assets/data/EIGHTBITWONDER.woff", AssetType.BINARY);
+		
+		className.set ("assets/data/song1x.ogg", __ASSET__assets_data_song1x_ogg);
+		type.set ("assets/data/song1x.ogg", AssetType.SOUND);
 		
 		className.set ("assets/data/song4.mp3", __ASSET__assets_data_song4_mp3);
 		type.set ("assets/data/song4.mp3", AssetType.MUSIC);
@@ -1083,6 +1093,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_data_eightbitwonder_svg extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_practice_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_eightbitwonder_woff extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_song1x_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_song4_mp3 extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_death_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_song3_ogg extends null { }
@@ -1112,6 +1123,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 @:keep #if display private #end class __ASSET__assets_data_eightbitwonder_ttf extends lime.text.Font { public function new () { super (); name = "8BIT WONDER Nominal"; } } 
+
 
 
 
@@ -1164,6 +1176,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/data/EIGHTBITWONDER.svg") #if display private #end class __ASSET__assets_data_eightbitwonder_svg extends lime.utils.Bytes {}
 @:file("assets/data/practice.ogg") #if display private #end class __ASSET__assets_data_practice_ogg extends lime.utils.Bytes {}
 @:file("assets/data/EIGHTBITWONDER.woff") #if display private #end class __ASSET__assets_data_eightbitwonder_woff extends lime.utils.Bytes {}
+@:file("assets/data/song1x.ogg") #if display private #end class __ASSET__assets_data_song1x_ogg extends lime.utils.Bytes {}
 @:file("assets/data/song4.mp3") #if display private #end class __ASSET__assets_data_song4_mp3 extends lime.utils.Bytes {}
 @:file("assets/data/death.ogg") #if display private #end class __ASSET__assets_data_death_ogg extends lime.utils.Bytes {}
 @:file("assets/data/song3.ogg") #if display private #end class __ASSET__assets_data_song3_ogg extends lime.utils.Bytes {}

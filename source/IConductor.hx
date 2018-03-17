@@ -1,7 +1,7 @@
 package;
 
 // TODO: comment this
-interface Conductor {
+interface IConductor {
 	// What is the current beat?
 	public function getCurrentBeat():Int;
 }

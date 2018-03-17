@@ -7,7 +7,7 @@ import flixel.system.FlxSound;
 
 import flixel.tile.FlxTilemap;
 
-class SingleplayerState extends FlxState implements Conductor {
+class SingleplayerState extends FlxState implements IConductor {
 	private var segments:List<GameMapSegment>;
 	private var segmentsToRender:FlxTypedGroup<GameMapSegment>;
 	private var currentBeat:Int;
@@ -31,10 +31,12 @@ class SingleplayerState extends FlxState implements Conductor {
 		song = new FlxSound();
 		song.loadEmbedded(AssetPaths.song3__ogg);
 		add(song);
-		//song.play();
+		song.play();
 	}
 
 	override public function update(elapsed:Float):Void {
+		super.update(elapsed);
+
 		var songProgress:Int = Std.int(song.time);
 
 		//trace("songProgress: " + songProgress);
@@ -46,6 +48,10 @@ class SingleplayerState extends FlxState implements Conductor {
 			song.time = 0;
 			this.currentBeat++;
 			trace("restarted song");
+
+			for (segment in segments) {
+				segment.beat(this.currentBeat);
+			}
 		} else {
 			var songBeat:Int = Std.int(songProgress / Main.beatTime);
 			if (songBeat > (currentBeat % 32)) {
@@ -53,10 +59,12 @@ class SingleplayerState extends FlxState implements Conductor {
 				trace("new currentBeat: " + songBeat);
 				this.currentBeat = (currentBeat - (currentBeat % 32))
 					+ songBeat;
+
+				for (segment in segments) {
+					segment.beat(this.currentBeat);
+				}
 			}
 		}
-
-		super.update(elapsed);
 	}
 
 	public function getCurrentBeat():Int {

@@ -110,6 +110,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.BINARY);
 		
 		
+		urls.push ("assets/data/song1x.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
 		urls.push ("assets/data/song4.mp3");
 		types.push (lime.Assets.AssetType.MUSIC);
 		
@@ -227,7 +231,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "375",
+			build: "523",
 			company: "HaxeFlixel",
 			file: "FollowTheBeat",
 			fps: 60,

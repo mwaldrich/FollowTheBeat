@@ -66,7 +66,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
 		Font.registerFont (__ASSET__assets_data_eightbitwonder_ttf);
+		
 		
 		
 		
@@ -95,6 +97,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -636,7 +640,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__assets_data_eightbitwonder_ttf);
+		
 		
 		
 		
@@ -681,6 +687,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/EIGHTBITWONDER.txt", AssetType.TEXT);
 		path.set ("assets/data/song5.mp3", "assets/data/song5.mp3");
 		type.set ("assets/data/song5.mp3", AssetType.MUSIC);
+		path.set ("assets/data/song5x.ogg", "assets/data/song5x.ogg");
+		type.set ("assets/data/song5x.ogg", AssetType.SOUND);
 		path.set ("assets/data/song4.ogg", "assets/data/song4.ogg");
 		type.set ("assets/data/song4.ogg", AssetType.SOUND);
 		path.set ("assets/data/song1.mp3", "assets/data/song1.mp3");
@@ -705,6 +713,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/practice.ogg", AssetType.SOUND);
 		path.set ("assets/data/EIGHTBITWONDER.woff", "assets/data/EIGHTBITWONDER.woff");
 		type.set ("assets/data/EIGHTBITWONDER.woff", AssetType.BINARY);
+		path.set ("assets/data/song1x.ogg", "assets/data/song1x.ogg");
+		type.set ("assets/data/song1x.ogg", AssetType.SOUND);
 		path.set ("assets/data/song4.mp3", "assets/data/song4.mp3");
 		type.set ("assets/data/song4.mp3", AssetType.MUSIC);
 		path.set ("assets/data/death.ogg", "assets/data/death.ogg");
@@ -762,6 +772,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "assets/data/song5.mp3";
 		path.set (id, id);
 		type.set (id, AssetType.MUSIC);
+		id = "assets/data/song5x.ogg";
+		path.set (id, id);
+		type.set (id, AssetType.SOUND);
 		id = "assets/data/song4.ogg";
 		path.set (id, id);
 		type.set (id, AssetType.SOUND);
@@ -798,6 +811,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "assets/data/EIGHTBITWONDER.woff";
 		path.set (id, id);
 		type.set (id, AssetType.BINARY);
+		id = "assets/data/song1x.ogg";
+		path.set (id, id);
+		type.set (id, AssetType.SOUND);
 		id = "assets/data/song4.mp3";
 		path.set (id, id);
 		type.set (id, AssetType.MUSIC);
@@ -873,9 +889,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
+		useManifest = true;
 		
 		className.set ("assets/data/EIGHTBITWONDER.ttf", __ASSET__assets_data_eightbitwonder_ttf);
 		type.set ("assets/data/EIGHTBITWONDER.ttf", AssetType.FONT);
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -1657,6 +1675,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
 @:keep @:bind #if display private #end class __ASSET__flixel_sounds_beep_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__flixel_sounds_flixel_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends null { }
@@ -1677,7 +1697,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
 @:keep #if display private #end class __ASSET__assets_data_eightbitwonder_ttf extends lime.text.Font { public function new () { super (); name = "8BIT WONDER Nominal"; } } 
+
 
 
 

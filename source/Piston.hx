@@ -1,6 +1,6 @@
 package;
 
-class Piston implements Hazard {
+class Piston implements IHazard {
 	// The location of this Piston
 	private var location:Coordinate;
 
@@ -24,6 +24,10 @@ class Piston implements Hazard {
 
 	public function getLocation():Coordinate {
 		return this.location;
+	}
+
+	public function getExtendedLocation():Coordinate {
+		return this.extendedLocation;
 	}
 
 	public function getDirection():Direction {
@@ -77,7 +81,7 @@ class Piston implements Hazard {
 		return (beat % this.timing) == this.offset;
 	}
 
-	public function generateGameHazard(conductor:Conductor):GameHazard {
+	public function generateGameHazard(conductor:IConductor):AGameHazard {
 		return new GamePiston(this, conductor);
 	}
 }

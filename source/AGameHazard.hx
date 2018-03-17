@@ -13,40 +13,32 @@ import flixel.FlxSprite;
 // to prevent instantiation by classes other than subclasses (this is how
 // "private" visibility works in Haxe
 // [https://haxe.org/manual/class-field-visibility.html]).
-class GameHazard extends GameSprite {
+class AGameHazard {
 
 	private var lastBeatActivated:Int;
-	private var conductor:Conductor;
+	private var conductor:IConductor;
 
-	private function new(x:Int, y:Int, conductor:Conductor) {
-		super(x, y);
-
+	private function new(conductor:IConductor) {
 		this.conductor = conductor;
 		this.lastBeatActivated = -1;
 	}
 
-	public override function update(elapsed:Float):Void {
-		super.update(elapsed);
-
-		var currentBeat:Int = conductor.getCurrentBeat();
-
-		if (this.lastBeatActivated < currentBeat) {
-			this.lastBeatActivated = currentBeat;
-			this.activate(currentBeat);
-		}
-	}
-
-	// Get the Hazard associated with this GameHazard.
+	// Get the Hazard associated with this AGameHazard.
 	// This should be overriden in subclasses.
-	public function getHazard():Hazard {
-		throw "GameHazard's implementation of getHazard() was called!"
+	public function getHazard():IHazard {
+		throw "AGameHazard's implementation of getHazard() was called!"
 			+ "\nThis should be overriden by subclasses.";
 	}
 
 	// This is called when a new beat occurs.
 	// This should be overriden in subclasses.
-	public function activate(newBeat:Int):Void {
-		throw "GameHazard's implementation of activate() was called!"
+	public function beat(newBeat:Int):Void {
+		throw "AGameHazard's implementation of beat() was called!"
+			+ "\nThis should be overriden by subclasses.";
+	}
+
+	public function getPieces():Array<AGameSprite> {
+		throw "AGameHazard's implementation of getPieces() was called!"
 			+ "\nThis should be overriden by subclasses.";
 	}
 }

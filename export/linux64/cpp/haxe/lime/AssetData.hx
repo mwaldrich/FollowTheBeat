@@ -32,6 +32,8 @@ class AssetData {
 			type.set ("assets/data/EIGHTBITWONDER.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 			path.set ("assets/data/song5.mp3", "assets/data/song5.mp3");
 			type.set ("assets/data/song5.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+			path.set ("assets/data/song5x.ogg", "assets/data/song5x.ogg");
+			type.set ("assets/data/song5x.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
 			path.set ("assets/data/song4.ogg", "assets/data/song4.ogg");
 			type.set ("assets/data/song4.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
 			path.set ("assets/data/song1.mp3", "assets/data/song1.mp3");
@@ -56,6 +58,8 @@ class AssetData {
 			type.set ("assets/data/practice.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
 			path.set ("assets/data/EIGHTBITWONDER.woff", "assets/data/EIGHTBITWONDER.woff");
 			type.set ("assets/data/EIGHTBITWONDER.woff", Reflect.field (AssetType, "binary".toUpperCase ()));
+			path.set ("assets/data/song1x.ogg", "assets/data/song1x.ogg");
+			type.set ("assets/data/song1x.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
 			path.set ("assets/data/song4.mp3", "assets/data/song4.mp3");
 			type.set ("assets/data/song4.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
 			path.set ("assets/data/death.ogg", "assets/data/death.ogg");

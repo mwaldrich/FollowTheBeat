@@ -39,4 +39,13 @@ class DirectionUtils {
 			case Right: FlxObject.RIGHT;
 		}
 	}
+
+	public static function toAngle(direction:Direction):Int {
+		return switch (direction) {
+			case Down: 0;
+			case Right: 270;
+			case Up: 180;
+			case Left: 90;
+		}
+	}
 }
