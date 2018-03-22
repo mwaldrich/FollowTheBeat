@@ -10,6 +10,8 @@ import flixel.tile.FlxTilemap;
 class SingleplayerState extends FlxState implements IConductor {
 	private var segments:List<GameMapSegment>;
 	private var segmentsToRender:FlxTypedGroup<GameMapSegment>;
+	private var player:GamePlayer;
+
 	private var currentBeat:Int;
 
 	private var song:FlxSound;
@@ -18,13 +20,19 @@ class SingleplayerState extends FlxState implements IConductor {
 		super.create();
 
 		segments = new List<GameMapSegment>();
-		segments.add(new GameMapSegment(Main.exampleSegment1, this));
+
+		// TODO: don't do this
+		segments.add(new GameMapSegment(Main.exampleSegment1));
+		segments.add(new GameMapSegment(Main.exampleSegment2));
 
 		segmentsToRender = new FlxTypedGroup<GameMapSegment>();
 		add(segmentsToRender);
 
-		// TODO: don't do this
-		segmentsToRender.add(segments.first());
+		// TODO: don't do this either
+		this.player = new GamePlayer(new Player(new Coordinate(1, 0), Direction.Up));
+		for (sprite in player.getPieces()) {
+			add(sprite);
+		}
 
 		this.currentBeat = 0;
 
@@ -63,11 +71,55 @@ class SingleplayerState extends FlxState implements IConductor {
 				for (segment in segments) {
 					segment.beat(this.currentBeat);
 				}
+
+				updateCameraPosition();
 			}
 		}
+
+		updateSegmentsToRender();
+
+		// updateCameraPosition();
+	}
+
+	public function addMapSegment(mapSegment:GameMapSegment):Void {
+		this.segments.add(mapSegment);
 	}
 
 	public function getCurrentBeat():Int {
 		return this.currentBeat;
+	}
+
+	// Updates `segmentsToRender` to only include segments that
+	// are visible on the screen.
+	private function updateSegmentsToRender():Void {
+		// Naive approach just to get things going
+		segmentsToRender.clear();
+
+		var currentSegmentOffset:Int = BeatUtils.segmentOffset(this.currentBeat);
+		var previousSegmentOffset:Int = BeatUtils.segmentOffset(this.currentBeat) - Main.segmentHeight;
+		var nextSegmentOffset:Int = BeatUtils.segmentOffset(this.currentBeat) + Main.segmentHeight;
+
+		for (segment in segments) {
+			// Also naive, just render the current segment, plus the one
+			// above and below it
+			var segmentOffset:Int = segment.getMapSegment().offsetY;
+
+			if (segmentOffset == currentSegmentOffset
+			|| segmentOffset == previousSegmentOffset
+			|| segmentOffset == nextSegmentOffset) {
+				segmentsToRender.add(segment);
+			}
+		}
+
+		// trace("segmentsToRender.length = " + segmentsToRender.length);
+	}
+
+	private function updateCameraPosition():Void {
+		FlxG.camera.setPosition(0, Main.tileScale * BeatUtils.minimumY(this.currentBeat));
+
+
+		for (segment in segmentsToRender) {
+			segment.updateBuffers();
+		}
 	}
 }

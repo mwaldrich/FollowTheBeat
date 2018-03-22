@@ -5,11 +5,10 @@ class GameRhythmBomb extends AGameHazard {
 	private var rhythmBomb:RhythmBomb;
 	private var rhythmBombSprite:GameRhythmBombSprite;
 
-	public function new(rhythmBomb:RhythmBomb, conductor:IConductor) {
-		super(conductor);
+	public function new(rhythmBomb:RhythmBomb) {
+		super();
 
 		this.rhythmBomb = rhythmBomb;
-		this.conductor = conductor;
 		this.rhythmBombSprite = new GameRhythmBombSprite(rhythmBomb.getLocation().x, rhythmBomb.getLocation().y);
 	}
 

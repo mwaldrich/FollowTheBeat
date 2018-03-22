@@ -15,4 +15,11 @@ class BeatUtils {
 	public static function minimumBeat(y:Int) {
 		return y * 4;
 	}
+
+	// What is the y offset of the MapSegment that this beat is on?
+	public static function segmentOffset(beat:Int):Int {
+		var minimumY:Int = BeatUtils.minimumY(beat);
+
+		return minimumY - (minimumY % Main.segmentHeight);
+	}
 }

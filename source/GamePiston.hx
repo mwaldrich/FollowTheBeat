@@ -8,8 +8,8 @@ class GamePiston extends AGameHazard {
 
 	private var sprites:Array<AGameSprite>;
 
-	public function new(piston:Piston, conductor:IConductor) {
-		super(conductor);
+	public function new(piston:Piston) {
+		super();
 
 		this.piston = piston;
 

@@ -54,8 +54,8 @@ class RhythmBomb implements IHazard {
 		}
 	}
 
-	public function generateGameHazard(conductor:IConductor):AGameHazard {
-		return new GameRhythmBomb(this, conductor);
+	public function generateGameHazard():AGameHazard {
+		return new GameRhythmBomb(this);
 	}
 
 	public function toString():String {

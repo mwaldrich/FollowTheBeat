@@ -6,8 +6,6 @@ class GamePistonHeadSprite extends AGameSprite {
 
 	public function new(x:Int, y:Int, angle:Float) {
 		super(x, y);
-		trace("x: " + x);
-		trace("y: " + y);
 
 		this.pixelX = this.x;
 		this.pixelY = this.y;
@@ -23,13 +21,11 @@ class GamePistonHeadSprite extends AGameSprite {
 	}
 
 	public override function activate(beat:Int):Void {
-		trace("activating piston head!");
 		this.reset(this.pixelX, this.pixelY);
 		this.animation.play("head_fire");
 	}
 
 	public override function deactivate(beat:Int):Void {
-		trace("deactivating piston head!");
 		this.kill();
 	}
 }

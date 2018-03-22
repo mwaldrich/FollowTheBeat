@@ -39,5 +39,5 @@ interface IHazard {
 	public function getDifficultyBetweenRows(minY:Int, maxY:Int):Float;
 
 	// Generates a GameHazard that corresponds with this Hazard.
-	public function generateGameHazard(conductor:IConductor):AGameHazard;
+	public function generateGameHazard():AGameHazard;
 }

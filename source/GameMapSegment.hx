@@ -5,16 +5,14 @@ import flixel.tile.FlxTilemap;
 
 class GameMapSegment extends FlxGroup {
 	private var mapSegment:MapSegment;
-	private var conductor:IConductor;
 	private var tilemap:FlxTilemap;
 
 	private var gameHazardList:List<AGameHazard>;
 
-	public function new(mapSegment:MapSegment, conductor:IConductor) {
+	public function new(mapSegment:MapSegment) {
 		super();
 
 		this.mapSegment = mapSegment;
-		this.conductor = conductor;
 		// this.tilemap = new FlxTilemap();
 
 		// tilemap.loadMapFromCSV("0,0,0,\n0,0,0,\n0,0,0,\n0,0,0\n"
@@ -44,7 +42,10 @@ class GameMapSegment extends FlxGroup {
 		tilemap.scale.x = Main.tileScale / 32;
 		tilemap.scale.y = Main.tileScale / 32;
 
-		tilemap.y = Main.tileEndY - tilemap.height;
+		tilemap.y = Main.tileEndY - tilemap.height
+			- (mapSegment.offsetY * Main.tileScale);
+
+		trace("new tilemap.y: " + tilemap.y);
 
 		// tilemap.x = 360 / 2;
 		// tilemap.y = 640 / 2;
@@ -55,6 +56,10 @@ class GameMapSegment extends FlxGroup {
 		this.gameHazardList = new List<AGameHazard>();
 
 		populateGroup();
+	}
+
+	public function updateBuffers():Void {
+		this.tilemap.updateBuffers();
 	}
 
 	public function beat(newBeat:Int):Void {
@@ -72,7 +77,7 @@ class GameMapSegment extends FlxGroup {
 	// in this segment and adds them to this group.
 	private function populateGroup():Void {
 		for (hazard in this.mapSegment.hazardList) {
-			var hazard = hazard.generateGameHazard(this.conductor);
+			var hazard = hazard.generateGameHazard();
 
 			gameHazardList.add(hazard);
 

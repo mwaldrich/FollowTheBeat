@@ -18,6 +18,7 @@ class Main extends Sprite {
 
 	public static var random:FlxRandom;
 	public static var exampleSegment1:MapSegment;
+	public static var exampleSegment2:MapSegment;
 
 	public function new() {
 		super();
@@ -40,6 +41,10 @@ class Main extends Sprite {
 		exampleSegment1.addHazard(new RhythmBomb(new Coordinate(0, 0), 4));
 		// exampleSegment1.addHazard(new RhythmBomb(new Coordinate(2, 1), 4));
 		// exampleSegment1.addHazard(new RhythmBomb(new Coordinate(2, 1), 4));
+		exampleSegment2 = new MapSegment(8, segmentWidth, segmentHeight);
+		exampleSegment2.addHazard(new RhythmBomb(new Coordinate(2, 8), 2));
+		exampleSegment2.addHazard(new RhythmBomb(new Coordinate(0, 9), 4));
+
 		addChild(new FlxGame(0, 0, MenuState, true));
 	}
 }

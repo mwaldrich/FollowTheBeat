@@ -81,7 +81,7 @@ class Piston implements IHazard {
 		return (beat % this.timing) == this.offset;
 	}
 
-	public function generateGameHazard(conductor:IConductor):AGameHazard {
-		return new GamePiston(this, conductor);
+	public function generateGameHazard():AGameHazard {
+		return new GamePiston(this);
 	}
 }

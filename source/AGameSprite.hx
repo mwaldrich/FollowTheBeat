@@ -11,6 +11,8 @@ class AGameSprite extends FlxSprite {
 		var pixelX:Float = (x * Main.tileScale + halfScale - eighthScale);
 		var pixelY:Float = Main.tileEndY - (y * Main.tileScale + halfScale + eighthScale);
 
+		trace("pixelX: " + pixelX + "; pixelY: " + pixelY);
+
 		super(pixelX, pixelY);
 
 		// this.scale.x = Main.tileScale / 32;
