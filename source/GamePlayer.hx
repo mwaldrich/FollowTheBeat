@@ -24,7 +24,7 @@ class GamePlayer extends AGameObject {
 	}
 
 	public override function beat(newBeat:Int):Void {
-		
+
 	}
 
 	public override function getPieces():Array<AGameSprite> {

@@ -4,7 +4,7 @@ import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.FlxG;
 import flixel.system.FlxSound;
-
+import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
 
 class SingleplayerState extends FlxState implements IConductor {
@@ -35,6 +35,10 @@ class SingleplayerState extends FlxState implements IConductor {
 		}
 
 		this.currentBeat = 0;
+
+		FlxG.camera.setSize(Main.tileScale * 3, Main.tileScale * 4);
+		FlxG.camera.setPosition(0, Main.tileScale / 3);
+		updateCameraPosition();
 
 		song = new FlxSound();
 		song.loadEmbedded(AssetPaths.song3__ogg);
@@ -115,7 +119,12 @@ class SingleplayerState extends FlxState implements IConductor {
 	}
 
 	private function updateCameraPosition():Void {
-		FlxG.camera.setPosition(0, Main.tileScale * BeatUtils.minimumY(this.currentBeat));
+		// TODO: document the coordinate system in the readme
+		// and the source code:
+		// y starts at 0 for beat 0, then grows NEGATIVELY
+		// in Main.tileScale increments.
+
+		FlxG.camera.focusOn(new FlxPoint(Main.tileScale * 1.5, -Main.tileScale * (BeatUtils.minimumY(this.currentBeat) + 2)));
 
 
 		for (segment in segmentsToRender) {

@@ -9,7 +9,7 @@ class AGameSprite extends FlxSprite {
 		var halfScale:Int = Std.int(Main.tileScale / 2);
 		var eighthScale:Int = Std.int(Main.tileScale / 8) + 1;
 		var pixelX:Float = (x * Main.tileScale + halfScale - eighthScale);
-		var pixelY:Float = Main.tileEndY - (y * Main.tileScale + halfScale + eighthScale);
+		var pixelY:Float = -(y * Main.tileScale + halfScale + eighthScale);
 
 		trace("pixelX: " + pixelX + "; pixelY: " + pixelY);
 

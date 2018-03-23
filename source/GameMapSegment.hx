@@ -42,8 +42,7 @@ class GameMapSegment extends FlxGroup {
 		tilemap.scale.x = Main.tileScale / 32;
 		tilemap.scale.y = Main.tileScale / 32;
 
-		tilemap.y = Main.tileEndY - tilemap.height
-			- (mapSegment.offsetY * Main.tileScale);
+		tilemap.y = -(tilemap.height + (mapSegment.offsetY * Main.tileScale));
 
 		trace("new tilemap.y: " + tilemap.y);
 
