@@ -22,4 +22,8 @@ class BeatUtils {
 
 		return minimumY - (minimumY % Main.segmentHeight);
 	}
+
+	public static function segmentOffsetFromCoordinate(coordinate:Coordinate):Int {
+		return coordinate.y - (coordinate.y % Main.segmentHeight);
+	}
 }

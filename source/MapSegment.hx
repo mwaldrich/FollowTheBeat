@@ -15,6 +15,10 @@ class MapSegment {
 		this.hazardList = new List<IHazard>();
 	}
 
+	public function getOffset():Int {
+		return this.offsetY;
+	}
+
 	public function addHazard(hazard:IHazard):Void {
 		hazardList.add(hazard);
 	}

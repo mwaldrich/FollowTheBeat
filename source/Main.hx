@@ -16,6 +16,8 @@ class Main extends Sprite {
 	public static inline var tileStartY:Int = Std.int(tileScale / 3);
 	public static inline var tileEndY:Int = (tileScale * 4) + tileStartY;
 
+	public static inline var tolerance:Float = 0.5;
+
 	public static var random:FlxRandom;
 	public static var exampleSegment1:MapSegment;
 	public static var exampleSegment2:MapSegment;

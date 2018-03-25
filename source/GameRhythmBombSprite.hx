@@ -1,8 +1,8 @@
 package;
 
 class GameRhythmBombSprite extends AGameSprite {
-	public function new(x:Int, y:Int) {
-		super(x, y);
+	public function new(coordinate:Coordinate) {
+		super(coordinate);
 
 		// Load rhythm bomb spritesheet
 		loadGraphic(AssetPaths.bomb__png, true, 32, 32);

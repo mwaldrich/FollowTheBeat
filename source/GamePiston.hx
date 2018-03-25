@@ -16,12 +16,10 @@ class GamePiston extends AGameHazard {
 		this.angle = DirectionUtils.toAngle(piston.getDirection());
 
 		this.pistonBody = new GamePistonBodySprite(
-			piston.getLocation().x,
-			piston.getLocation().y,
+			piston.getLocation(),
 			this.angle);
 		this.pistonHead = new GamePistonHeadSprite(
-			piston.getExtendedLocation().x,
-			piston.getExtendedLocation().y,
+			piston.getExtendedLocation(),
 			this.angle);
 
 		sprites = [pistonBody, pistonHead];

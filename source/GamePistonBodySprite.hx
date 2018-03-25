@@ -1,8 +1,8 @@
 package;
 
 class GamePistonBodySprite extends AGameSprite {
-	public function new(x:Int, y:Int, angle:Float) {
-		super(x, y);
+	public function new(coordinate:Coordinate, angle:Float) {
+		super(coordinate);
 
 		this.angle = angle;
 

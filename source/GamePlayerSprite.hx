@@ -1,8 +1,8 @@
 package;
 
 class GamePlayerSprite extends AGameSprite {
-	public function new(x:Int, y:Int, angle:Float) {
-		super(x, y);
+	public function new(coordinate:Coordinate, angle:Float) {
+		super(coordinate);
 
 		this.angle = angle;
 
@@ -14,6 +14,10 @@ class GamePlayerSprite extends AGameSprite {
 		this.animation.add("walk", [0, 2], Std.int(Main.animationFPS / 3), true);
 
 		this.animation.play("walk");
+	}
+
+	public function move(coordinate:Coordinate, beat:Int):Void {
+		this.setLocation(coordinate);
 	}
 
 	public override function activate(beat:Int):Void {

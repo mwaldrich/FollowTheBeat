@@ -4,8 +4,8 @@ class GamePistonHeadSprite extends AGameSprite {
 	private var pixelX:Float;
 	private var pixelY:Float;
 
-	public function new(x:Int, y:Int, angle:Float) {
-		super(x, y);
+	public function new(coordinate:Coordinate, angle:Float) {
+		super(coordinate);
 
 		this.pixelX = this.x;
 		this.pixelY = this.y;

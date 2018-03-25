@@ -9,7 +9,7 @@ class GameRhythmBomb extends AGameHazard {
 		super();
 
 		this.rhythmBomb = rhythmBomb;
-		this.rhythmBombSprite = new GameRhythmBombSprite(rhythmBomb.getLocation().x, rhythmBomb.getLocation().y);
+		this.rhythmBombSprite = new GameRhythmBombSprite(rhythmBomb.getLocation());
 	}
 
 	public override function getHazard():IHazard {

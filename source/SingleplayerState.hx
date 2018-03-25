@@ -7,12 +7,14 @@ import flixel.system.FlxSound;
 import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
 
-class SingleplayerState extends FlxState implements IConductor {
+class SingleplayerState extends FlxState implements IContinuousMap implements IConductor {
 	private var segments:List<GameMapSegment>;
 	private var segmentsToRender:FlxTypedGroup<GameMapSegment>;
 	private var player:GamePlayer;
+	private var playerController:GamePlayerController;
 
 	private var currentBeat:Int;
+	private var beatProgress:Float;
 
 	private var song:FlxSound;
 
@@ -29,16 +31,22 @@ class SingleplayerState extends FlxState implements IConductor {
 		add(segmentsToRender);
 
 		// TODO: don't do this either
-		this.player = new GamePlayer(new Player(new Coordinate(1, 0), Direction.Up));
+		this.player = new GamePlayer(new Player(new Coordinate(1, 0), Direction.Up), this);
+		this.playerController = new GamePlayerController(1, this.player, this);
 		for (sprite in player.getPieces()) {
 			add(sprite);
 		}
 
 		this.currentBeat = 0;
+		this.beatProgress = 0.0;
+
+		// Initially update the segments to render and adjust
+		// the initial camera position
+		updateSegmentsToRender();
+		updateCameraPosition();
 
 		FlxG.camera.setSize(Main.tileScale * 3, Main.tileScale * 4);
 		FlxG.camera.setPosition(0, Main.tileScale / 3);
-		updateCameraPosition();
 
 		song = new FlxSound();
 		song.loadEmbedded(AssetPaths.song3__ogg);
@@ -49,48 +57,33 @@ class SingleplayerState extends FlxState implements IConductor {
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 
-		var songProgress:Int = Std.int(song.time);
+		this.updateBeatProgress();
+	}
 
-		//trace("songProgress: " + songProgress);
+	public function getBeatProgress():Float {
+		return this.beatProgress;
+	}
 
-		// TODO: fix HTML5 unfocus music bug
+	public function getBeat():Int {
+		return this.currentBeat;
+	}
 
-		// Has the song ended?
-		if (songProgress / Main.beatTime >= Main.songLength) {
-			song.time = 0;
-			this.currentBeat++;
-			trace("restarted song");
+	public function getMapSegment(coordinate:Coordinate):MapSegment {
+		var segmentOffset:Int = BeatUtils.segmentOffsetFromCoordinate(coordinate);
 
-			for (segment in segments) {
-				segment.beat(this.currentBeat);
-			}
-		} else {
-			var songBeat:Int = Std.int(songProgress / Main.beatTime);
-			if (songBeat > (currentBeat % 32)) {
-				trace("currentBeat: " + currentBeat);
-				trace("new currentBeat: " + songBeat);
-				this.currentBeat = (currentBeat - (currentBeat % 32))
-					+ songBeat;
+		for (gameSegment in segments) {
+			var segment:MapSegment = gameSegment.getMapSegment();
 
-				for (segment in segments) {
-					segment.beat(this.currentBeat);
-				}
-
-				updateCameraPosition();
+			if (segment.getOffset() == segmentOffset) {
+				return segment;
 			}
 		}
 
-		updateSegmentsToRender();
-
-		// updateCameraPosition();
+		return null;
 	}
 
 	public function addMapSegment(mapSegment:GameMapSegment):Void {
 		this.segments.add(mapSegment);
-	}
-
-	public function getCurrentBeat():Int {
-		return this.currentBeat;
 	}
 
 	// Updates `segmentsToRender` to only include segments that
@@ -99,9 +92,12 @@ class SingleplayerState extends FlxState implements IConductor {
 		// Naive approach just to get things going
 		segmentsToRender.clear();
 
-		var currentSegmentOffset:Int = BeatUtils.segmentOffset(this.currentBeat);
-		var previousSegmentOffset:Int = BeatUtils.segmentOffset(this.currentBeat) - Main.segmentHeight;
-		var nextSegmentOffset:Int = BeatUtils.segmentOffset(this.currentBeat) + Main.segmentHeight;
+		var currentSegmentOffset:Int =
+			BeatUtils.segmentOffset(this.currentBeat);
+		var previousSegmentOffset:Int =
+			BeatUtils.segmentOffset(this.currentBeat) - Main.segmentHeight;
+		var nextSegmentOffset:Int =
+			BeatUtils.segmentOffset(this.currentBeat) + Main.segmentHeight;
 
 		for (segment in segments) {
 			// Also naive, just render the current segment, plus the one
@@ -114,8 +110,56 @@ class SingleplayerState extends FlxState implements IConductor {
 				segmentsToRender.add(segment);
 			}
 		}
+	}
 
-		// trace("segmentsToRender.length = " + segmentsToRender.length);
+	// Updates the progress for this beat, restarts music if
+	// necessary, and processes a new beat if necessary. Updates
+	// `this.currentBeatProgress`.
+	private function updateBeatProgress():Void {
+		// Get song progress in ms
+		var songProgress:Int = Std.int(song.time);
+
+		// Update the current beatProgress
+		this.beatProgress = (songProgress / Main.beatTime) % 1;
+
+		//trace("songProgress: " + songProgress);
+
+		// TODO: fix HTML5 unfocus music bug
+
+		// Has the song ended?
+		if (songProgress / Main.beatTime >= Main.songLength) {
+			song.time = 0;
+			this.currentBeat++;
+			trace("restarted song");
+
+			this.processNewBeat();
+		} else {
+			var songBeat:Int = Std.int(songProgress / Main.beatTime);
+			if (songBeat > (currentBeat % 32)) {
+				trace("currentBeat: " + currentBeat);
+				trace("new currentBeat: " + songBeat);
+				this.currentBeat = (currentBeat - (currentBeat % 32))
+					+ songBeat;
+
+				this.processNewBeat();
+			}
+		}
+
+		playerController.update();
+	}
+
+	// Processes a beat for the entire game
+	private function processNewBeat():Void {
+		// Process the beat in all segments
+		for (segment in segments) {
+			segment.beat(this.currentBeat);
+		}
+
+		// Process the beat for the player
+		player.beat(this.currentBeat);
+
+		updateSegmentsToRender();
+		updateCameraPosition();
 	}
 
 	private function updateCameraPosition():Void {

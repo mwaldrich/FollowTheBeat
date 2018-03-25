@@ -42,6 +42,11 @@ class Player {
 		return new Player(location.manipulate(direction));
 	}
 
+	public function move(playerDirection:PlayerDirection):Player {
+		var direction:Direction = PlayerDirections.toDirection(playerDirection);
+		return new Player(this.location.manipulate(direction), direction);
+	}
+
 	// Returns a new Player that is moved up
 	public function moveUp():Player {
 		return new Player(this.location.manipulate(Direction.Up), Direction.Up);
@@ -55,6 +60,11 @@ class Player {
 	// Returns a new Player that is moved right
 	public function moveRight():Player {
 		return new Player(this.location.manipulate(Direction.Right), Direction.Right);
+	}
+
+	public function canMove(playerDirection:PlayerDirection, mapSegment:MapSegment, beat:Int):Bool {
+		var direction:Direction = PlayerDirections.toDirection(playerDirection);
+		return mapSegment.isWithinBounds(this.location.manipulate(direction), beat);
 	}
 
 	// Can this player move up?

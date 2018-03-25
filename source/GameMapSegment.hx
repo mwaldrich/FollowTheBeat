@@ -13,26 +13,6 @@ class GameMapSegment extends FlxGroup {
 		super();
 
 		this.mapSegment = mapSegment;
-		// this.tilemap = new FlxTilemap();
-
-		// tilemap.loadMapFromCSV("0,0,0,\n0,0,0,\n0,0,0,\n0,0,0\n"
-		// + "0,0,0,\n0,0,0,\n0,0,0,\n0,0,0", AssetPaths.tile__png, 32, 32);
-
-		// tilemap.scale.x = Main.tileScale / 32;
-		// tilemap.scale.y = Main.tileScale / 32;
-
-		// tilemap.x = 360 / 2;
-		// tilemap.y = 640 / 2;
-		// tilemap.follow();
-
-		// add(this.tilemap);
-
-		// trace("height in tiles: " + tilemap.heightInTiles);
-		// trace("width in tiles: " + tilemap.widthInTiles);
-		// trace("y: " + tilemap.y);
-		// trace("x: " + tilemap.x);
-		// trace("height: " + tilemap.height);
-		// trace("width: " + tilemap.width);
 
 		tilemap = new FlxTilemap();
 
@@ -43,12 +23,6 @@ class GameMapSegment extends FlxGroup {
 		tilemap.scale.y = Main.tileScale / 32;
 
 		tilemap.y = -(tilemap.height + (mapSegment.offsetY * Main.tileScale));
-
-		trace("new tilemap.y: " + tilemap.y);
-
-		// tilemap.x = 360 / 2;
-		// tilemap.y = 640 / 2;
-		// tilemap.follow();
 
 		add(tilemap);
 
