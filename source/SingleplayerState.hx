@@ -122,8 +122,6 @@ class SingleplayerState extends FlxState implements IContinuousMap implements IC
 		// Update the current beatProgress
 		this.beatProgress = (songProgress / Main.beatTime) % 1;
 
-		//trace("songProgress: " + songProgress);
-
 		// TODO: fix HTML5 unfocus music bug
 
 		// Has the song ended?

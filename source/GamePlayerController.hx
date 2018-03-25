@@ -27,6 +27,8 @@ class GamePlayerController {
 		this.lastBeatMoved = 0;
 	}
 
+	// Updates this `GamePlayerController` and moves the player
+	// appropriately.
 	public function update():Void {
 		var beatProgress:Float = conductor.getBeatProgress();
 
@@ -50,6 +52,8 @@ class GamePlayerController {
 				Main.tolerance);
 	}
 
+	// Process the given input and move the player accordingly.
+	// Will modify `this.lastBeatMoved` if we actually move.
 	private function processInput(newBeat:Int):Void {
 		for (control in keyboardControls.keys()) {
 			if (FlxG.keys.anyPressed(control)) {

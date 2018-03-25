@@ -28,7 +28,7 @@ class GamePlayer extends AGameObject implements IControllablePlayer {
 	}
 
 	public override function beat(newBeat:Int):Void {
-		// this.move(newBeat);
+
 	}
 
 	public override function getPieces():Array<AGameSprite> {
@@ -37,8 +37,6 @@ class GamePlayer extends AGameObject implements IControllablePlayer {
 
 	// Moves player
 	public function move(direction:PlayerDirection, newBeat:Int):Void {
-		// var directionToMove:PlayerDirection =
-		// 	this.playerController.getDirectionToMove();
 		var mapSegment:MapSegment = continuousMap.getMapSegment(player.getLocation());
 
 		if (this.player.canMove(direction, mapSegment, newBeat)) {
