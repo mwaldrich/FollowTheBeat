@@ -1,0 +1,24 @@
+language: haxe
+os:
+  - linux
+cache:
+  directories:
+  - "/home/travis/haxe/lib"
+install:
+  - echo $(haxelib config)
+  - travis_wait haxelib --always install flixel
+  - yes | travis_wait haxelib --always run lime setup
+  - travis_wait haxelib --always set hxcpp 3.4.64
+script: travis_wait haxelib run lime build cpp
+before_deploy: travis_wait haxelib run lime deploy cpp
+deploy:
+  provider: releases
+  api_key:
+    secure: kaNIT9RrAMKgsfAGJ63xRnArMUJCZJIRrRJqpYVMV/hKq0NF8BNvtmTiXflFofnSyFrQDLaF5uEH3OSCHkbAS7YtK8rlg6VTR75FhHYoPkdMVDxlrLUzAGj81aJV0YuujLOxh+o/0xcpen+yoxIV6kL1S0H2juWYlgayCou7nGoRCf06A0eR1MJBjluj+Tovi+gIgqFc9g4EBlRyzeMK7TxWAzULVpxBbz635mXGde8ZrGpTTd2Jxsum3wbSsk0/xWkpA4YUwy3F8eqiyTxwp9h6Qaoe/7K9mMpKfb4l48p78sWCNwjlUullzh5kQA06tPjtMUzx95C7Awd5jNzJdvqPH3VTt7+/ejSW8PcXjlLJaI0ldFV6+PgOqa2ywcSFmovw1nVUPdDDFF9ToNeanmdiwAobiUAHxr4cmB9oUreoqWNLuITJRBU2kYHbrZkuNsnMXYQIzgjbcmE/5hycnIsWIQU4zuVndbxCnaMZEdZD8cpFOtDm7JcGCRZyyl9hU3J4B+iOFwZ+Lb6tq4LC6UvfQy+r36963NcIweHF+mPjXdViYJf8yXyuahLcrK66nE6iU18+ZnmSJ7mYCaz46unLbxxC5avMy4KTu6VsYiM2tvi+yhg/4M+kWOW8SMI4nKb6c2TC01fHudpzXZVhTnHAPP1QTQjx9fFAkI6vAuI=
+  file_glob: true
+  file: export/linux64/cpp/FollowTheBeat*.zip
+  skip_cleanup: true
+  on:
+    tags: true
+after_deploy:
+  - rm -f export/linux64/cpp/FollowTheBeat*.zip
