@@ -57,6 +57,8 @@ class SingleplayerState extends FlxState implements IContinuousMap implements IC
 	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 
+		playerController.update();
+
 		this.updateBeatProgress();
 	}
 
@@ -142,8 +144,6 @@ class SingleplayerState extends FlxState implements IContinuousMap implements IC
 				this.processNewBeat();
 			}
 		}
-
-		playerController.update();
 	}
 
 	// Processes a beat for the entire game
