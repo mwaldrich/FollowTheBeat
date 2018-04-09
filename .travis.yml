@@ -17,6 +17,7 @@ install:
   - travis_wait haxelib --always install flixel
   - yes | travis_wait haxelib run lime setup
   - travis_wait haxelib --always set hxcpp 3.4.64
+  - printf "n\nn\nn\nn\n\n\n\n\n" | haxelib run lime setup android
 script:
   - travis_wait haxelib run lime build android
   - travis_wait haxelib run lime build linux
