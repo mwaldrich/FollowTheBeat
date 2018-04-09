@@ -1,4 +1,3 @@
-# To install: android-ndk
 language:
   - haxe
   - android
@@ -18,29 +17,13 @@ install:
   - travis_wait haxelib --always install flixel
   - yes | travis_wait haxelib run lime setup
   - travis_wait haxelib --always set hxcpp 3.4.64
-  - yes | travis_wait haxelib run lime setup android
-  - yes | travis_wait haxelib run lime setup blackberry
-  - yes | travis_wait haxelib run lime setup flash
-  - yes | travis_wait haxelib run lime setup html5
-  - yes | travis_wait haxelib run lime setup ios
-  - yes | travis_wait haxelib run lime setup linux
-  - yes | travis_wait haxelib run lime setup mac
-  - yes | travis_wait haxelib run lime setup windows
 script:
   - travis_wait haxelib run lime build android
-  - travis_wait haxelib run lime build blackberry
-  - travis_wait haxelib run lime build flash
-  - travis_wait haxelib run lime build html5
-  - travis_wait haxelib run lime build ios
   - travis_wait haxelib run lime build linux
   - travis_wait haxelib run lime build mac
   - travis_wait haxelib run lime build windows
 before_deploy:
   - travis_wait haxelib run lime deploy android
-  - travis_wait haxelib run lime deploy blackberry
-  - travis_wait haxelib run lime deploy flash
-  - travis_wait haxelib run lime deploy html5
-  - travis_wait haxelib run lime deploy ios
   - travis_wait haxelib run lime deploy linux
   - travis_wait haxelib run lime deploy mac
   - travis_wait haxelib run lime deploy windows
@@ -51,8 +34,12 @@ deploy:
   file_glob: true
   file:
     - export/linux64/cpp/FollowTheBeat*.zip
+    - export/mac64/neko/FollowTheBeat*.zip
+    - export/windows/neko/FollowTheBeat*.zip
   skip_cleanup: true
-  on:
-    tags: true
+  #on:
+          #tags: true
 after_deploy:
   - rm -f export/linux64/cpp/FollowTheBeat*.zip
+  - rm -f export/mac64/neko/FollowTheBeat*.zip
+  - rm -f export/windows/neko/FollowTheBeat*.zip
