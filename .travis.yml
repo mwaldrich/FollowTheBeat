@@ -22,6 +22,7 @@ install:
   - export PATH=$PATH:$ANDROID_NDK_ROOT
   - printf "n\nn\nn\nn\n\n\n\n\n" | haxelib run lime setup android
 script:
+  - ls $ANDROID_SDK # DEBUG
   - travis_wait haxelib run lime build android
   - cat export/android/bin/build.xml # DEBUG
   - env # DEBUG
