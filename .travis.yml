@@ -23,6 +23,7 @@ install:
 script:
   - travis_wait haxelib run lime build android
   - cat export/android/bin/build.xml # DEBUG
+  - env # DEBUG
   - travis_wait haxelib run lime build linux
   - travis_wait haxelib run lime build mac
   - travis_wait haxelib run lime build windows
