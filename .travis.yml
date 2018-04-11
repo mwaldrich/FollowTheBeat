@@ -1,6 +1,4 @@
-language:
-  - haxe
-  - android
+language: haxe
 os:
   - linux
 cache:
@@ -28,7 +26,7 @@ install:
   # Install Apache Ant
   - sudo apt-get install -y ant
   # Install Java JDK
-  - sudo apt-get install -y openjdk-7
+  - sudo apt-get install -y openjdk7
   - printf "n\nn\nn\ntools\nandroid-ndk-r16b\n/usr/share/apache-ant\n/usr/lib/jvm/java-7-openjdk\n" | haxelib run lime setup android
 script:
   - travis_wait haxelib run lime build android
