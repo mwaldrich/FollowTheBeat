@@ -18,13 +18,13 @@ install:
   - travis_wait haxelib --always set hxcpp 3.4.64
   # Install Android SDK, platform-tools, and API level 19
   - wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
-  - unzip sdk-tools-linux-3859397.zip
+  - unzip -q sdk-tools-linux-3859397.zip
   - export PATH=$(pwd)/tools/bin:$PATH
   - yes | travis_wait sdkmanager platform-tools
   - travis_wait sdkmanager "platforms;android-19"
   # Install Android NDK
   - wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
-  - unzip android-ndk-r16b-linux-x86_64.zip
+  - unzip -q android-ndk-r16b-linux-x86_64.zip
   # Install Apache Ant
   - sudo apt-get install -y ant
   # Install Java JDK
