@@ -9,15 +9,27 @@ cache:
 android:
   components:
     - ndk
-#before_install:
-#  - sudo apt-get -qq update
-#  - sudo apt-get install -y
+before_install:
+  - sudo apt-get -qq update
 install:
   - echo $(haxelib config)
   - travis_wait haxelib --always install flixel
   - yes | travis_wait haxelib run lime setup
   - travis_wait haxelib --always set hxcpp 3.4.64
-  - printf "n\nn\nn\nn\n\n\n\n\n" | haxelib run lime setup android
+  # Install Android SDK, platform-tools, and API level 19
+  - wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
+  - unzip sdk-tools-linux-3859397.zip
+  - export PATH=$(pwd)/tools/bin:$PATH
+  - yes | travis_wait sdkmanager platform-tools
+  - travis_wait sdkmanager "platforms;android-19"
+  # Install Android NDK
+  - wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
+  - unzip android-ndk-r16b-linux-x86_64.zip
+  # Install Apache Ant
+  - sudo apt-get install -y ant
+  # Install Java JDK
+  - sudo apt-get install -y openjdk-7
+  - printf "n\nn\nn\ntools\nandroid-ndk-r16b\n/usr/share/apache-ant\n/usr/lib/jvm/java-7-openjdk\n" | haxelib run lime setup android
 script:
   - travis_wait haxelib run lime build android
   - travis_wait haxelib run lime build linux
