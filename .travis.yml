@@ -1,26 +1,30 @@
-language:
-  - haxe
-  - android
+language: haxe
 os:
   - linux
 cache:
   directories:
   - "/home/travis/haxe/lib"
-#before_install:
-#  - sudo apt-get -qq update
-#  - sudo apt-get install -y
+before_install:
+  - sudo apt-get -qq update
 install:
   - echo $(haxelib config)
   - travis_wait haxelib --always install flixel
   - yes | travis_wait haxelib run lime setup
   - travis_wait haxelib --always set hxcpp 3.4.64
-  # Install android-ndk
-  - wget https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip
-  - unzip -qq android-ndk-r13b-linux-x86_64.zip
-  - export ANDROID_SDK=/usr/local/android-sdk
-  - export ANDROID_NDK_ROOT=`pwd`/android-ndk-r13b
-  - export PATH=$PATH:$ANDROID_NDK_ROOT
-  - printf "n\nn\nn\nn\n\n\n\n\n" | haxelib run lime setup android
+  # Install Android SDK, platform-tools, and API level 19
+  - wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
+  - unzip -q sdk-tools-linux-3859397.zip
+  - export PATH=$(pwd)/tools/bin:$PATH
+  - yes | travis_wait sdkmanager platform-tools
+  - travis_wait sdkmanager "platforms;android-19"
+  # Install Android NDK
+  - wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
+  - unzip -q android-ndk-r16b-linux-x86_64.zip
+  # Install Apache Ant
+  - sudo apt-get install -y ant
+  # Install Java JDK
+  - sudo apt-get install -y oracle-java8-installer
+  - printf "n\nn\nn\ntools\nandroid-ndk-r16b\n/usr/share/apache-ant\n/usr/lib/jvm/java-8-openjdk\n" | haxelib run lime setup android
 script:
   - which android # DEBUG
   - travis_wait haxelib run lime build android
@@ -44,8 +48,8 @@ deploy:
     - export/mac64/neko/FollowTheBeat*.zip
     - export/windows/neko/FollowTheBeat*.zip
   skip_cleanup: true
-  #on:
-          #tags: true
+  on:
+    tags: true
 after_deploy:
   - rm -f export/linux64/cpp/FollowTheBeat*.zip
   - rm -f export/mac64/neko/FollowTheBeat*.zip
