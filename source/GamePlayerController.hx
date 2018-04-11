@@ -11,13 +11,19 @@ class GamePlayerController {
 
 	private var lastBeatMoved:Int;
 
-	private static var keyboardControls:Map<Array<FlxKey>, PlayerDirection> = [
+	private static var keyboardControls:Map<Array<FlxKey>, PlayerDirection>;
+	// APPARENTLY THIS DOESN'T WORK ON JS TARGET????
+	/*= [
 		[UP, W]    => PlayerDirection.Up,
 		[LEFT, A]  => PlayerDirection.Left,
-		[RIGHT, D] => PlayerDirection.Right,
-	];
+		[RIGHT, D] => PlayerDirection.Right
+		];*/
 
 	public function new(playerNumber:Int, player:IControllablePlayer, conductor:IConductor) {
+		GamePlayerController.keyboardControls = new Map<Array<FlxKey>, PlayerDirection>();
+		GamePlayerController.keyboardControls.set([UP, W], PlayerDirection.Up);
+		GamePlayerController.keyboardControls.set([LEFT, A], PlayerDirection.Left);
+		GamePlayerController.keyboardControls.set([RIGHT, D], PlayerDirection.Right);
 		this.playerNumber = playerNumber;
 		this.player = player;
 		this.conductor = conductor;
@@ -39,7 +45,6 @@ class GamePlayerController {
 				conductor.getBeat(), beatProgress);
 
 		if (this.shouldProcessInput(moveBeat, beatProgress)) {
-
 			this.processInput(moveBeat);
 		}
 	}
@@ -55,10 +60,14 @@ class GamePlayerController {
 	// Process the given input and move the player accordingly.
 	// Will modify `this.lastBeatMoved` if we actually move.
 	private function processInput(newBeat:Int):Void {
+
 		for (control in keyboardControls.keys()) {
-			if (FlxG.keys.anyPressed(control)) {
+			if (FlxG.keys.anyJustPressed(control)) {
+				trace("moving player!");
+
 				this.lastBeatMoved = newBeat;
 				this.player.move(keyboardControls[control], newBeat);
+				break;
 			}
 		}
 	}

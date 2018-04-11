@@ -5,6 +5,8 @@ report/
 **/Thumbs.db
 .idea/
 out/
+export/*
+!export/.build
 
 assets/fonts/**/*.svg
 assets/fonts/**/*ttf.hash

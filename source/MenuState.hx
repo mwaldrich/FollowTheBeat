@@ -32,20 +32,20 @@ class MenuState extends FlxState {
 
 		// text1.setBorderStyle(FlxTextBorderStyle.NONE, new FlxColor(0xFF00FFED));
 
-		text1 = new FlxText(0, (1 * (FlxG.height / 4)) - FlxG.height / 8 - FlxG.height / 16, 0, "FOLLOW", cast(FlxG.height / 10, Int)); //, true);
+		text1 = new FlxText(0, (1 * (FlxG.height / 4)) - FlxG.height / 8 - FlxG.height / 16, 0, "FOLLOW", Std.int(FlxG.height / 10)); //, true);
 		text1.screenCenter(FlxAxes.X);
 		add(text1);
 
-		text2 = new FlxText(0, (2 * (FlxG.height / 4)) - FlxG.height / 8 - FlxG.height / 16, 0, "THE", cast(FlxG.height / 10, Int));
+		text2 = new FlxText(0, (2 * (FlxG.height / 4)) - FlxG.height / 8 - FlxG.height / 16, 0, "THE", Std.int(FlxG.height / 10));
 		text2.screenCenter(FlxAxes.X);
 		add(text2);
 
-		text3 = new FlxText(0, (3 * (FlxG.height / 4)) - FlxG.height / 8 - FlxG.height / 16, 0, "BEAT", cast(FlxG.height / 10, Int));
+		text3 = new FlxText(0, (3 * (FlxG.height / 4)) - FlxG.height / 8 - FlxG.height / 16, 0, "BEAT", Std.int(FlxG.height / 10));
 		text3.screenCenter(FlxAxes.X);
 		add(text3);
 
 		playButton = new FlxButton(0, 0, "Play", playSingleplayer);
-		// playButton.setGraphicSize(100, cast(FlxG.height / 8, Int));
+		// playButton.setGraphicSize(100, Std.int(FlxG.height / 8));
 		/*playButton.scale.x = 3;
 		  playButton.scale.y = 3;*/
 		playButton.x = (FlxG.width / 3) - playButton.width;
