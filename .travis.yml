@@ -34,7 +34,7 @@ install:
   # Install Java JDK
   - sudo apt-get install -y oracle-java8-installer
 
-  - printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n/usr/share/apache-ant\n/usr/lib/jvm/java-8-openjdk\n" | haxelib run lime setup android
+  - printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n$ANT_HOME\n/usr/lib/jvm/java-8-openjdk\n" | haxelib run lime setup android
 script:
   - which android # DEBUG
   - travis_wait haxelib run lime build android
