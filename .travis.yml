@@ -7,24 +7,34 @@ cache:
 before_install:
   - sudo apt-get -qq update
 install:
+  # Install HaxeFlixel
   - echo $(haxelib config)
   - travis_wait haxelib --always install flixel
   - yes | travis_wait haxelib run lime setup
   - travis_wait haxelib --always set hxcpp 3.4.64
+
   # Install Android SDK, platform-tools, and API level 19
   - wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
   - unzip -q sdk-tools-linux-3859397.zip
-  - export PATH=$(pwd)/tools/bin:$PATH
+  - export ANDROID_HOME=$(pwd)/tools
+  - export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
   - yes | travis_wait sdkmanager platform-tools
   - travis_wait sdkmanager "platforms;android-19"
+
   # Install Android NDK
   - wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
   - unzip -q android-ndk-r16b-linux-x86_64.zip
+  - export ANDROID_NDK=$(pwd)/android-ndk-r16b
+  - export ANDROID_NDK_HOME=$ANDROID_NDK
+  - export PATH=$PATH:$ANDROID_NDK
+
   # Install Apache Ant
   - sudo apt-get install -y ant
+
   # Install Java JDK
   - sudo apt-get install -y oracle-java8-installer
-  - printf "n\nn\nn\nn\ntools\nandroid-ndk-r16b\n/usr/share/apache-ant\n/usr/lib/jvm/java-8-openjdk\n" | haxelib run lime setup android
+
+  - printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n/usr/share/apache-ant\n/usr/lib/jvm/java-8-openjdk\n" | haxelib run lime setup android
 script:
   - which android # DEBUG
   - travis_wait haxelib run lime build android
