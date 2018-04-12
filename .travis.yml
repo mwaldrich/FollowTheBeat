@@ -19,7 +19,7 @@ install:
   # SDK version must be >= 25.2.3 for sdkmanager and < 25.3.0 for tools/ant
   # This is one of the few versions that actually works :)
   - wget http://dl-ssl.google.com/android/repository/tools_r25.2.3-linux.zip
-  - unzip -q tools_r24.0.1-linux.zip
+  - unzip -q tools_r25.2.3-linux.zip
   - mv tools $ANDROID_HOME
   - export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
   - yes | travis_wait sdkmanager platform-tools
