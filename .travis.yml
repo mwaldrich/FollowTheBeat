@@ -23,6 +23,7 @@ install:
   - mv tools $ANDROID_HOME
   - export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
   - yes | sdkmanager platform-tools
+  - yes | sdkmanager build-tools
   - travis_wait sdkmanager "platforms;android-19"
 
   # Install Android NDK
