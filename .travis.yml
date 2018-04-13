@@ -1,15 +1,64 @@
+# Copyright (c) 2018 Benjamin Levy
+#
+# This file is part of FollowTheBeat.
+#
+# FollowTheBeat is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# FollowTheBeat is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with FollowTheBeat. If not, see <http://www.gnu.org/licenses/>.
+
 language: haxe
 os:
   - linux
 cache:
   directories:
   - "/home/travis/haxe/lib"
+before_install:
+  - sudo apt-get -qq update
 install:
+  # Install HaxeFlixel
   - echo $(haxelib config)
   - travis_wait haxelib --always install flixel
   - yes | travis_wait haxelib run lime setup
   - travis_wait haxelib --always set hxcpp 3.4.64
+
+  # Install Android SDK, platform-tools, and API level 19
+  - export ANDROID_HOME=$(pwd)/android-sdk
+  - mkdir $ANDROID_HOME
+  # SDK version must be >= 25.2.3 for sdkmanager and < 25.3.0 for tools/ant
+  # This is one of the few versions that actually works :)
+  - wget http://dl-ssl.google.com/android/repository/tools_r25.2.3-linux.zip
+  - unzip -q tools_r25.2.3-linux.zip
+  - mv tools $ANDROID_HOME
+  - export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
+  - yes | sdkmanager platform-tools
+  - yes | sdkmanager "build-tools;24.0.1"
+  - travis_wait sdkmanager "platforms;android-19"
+
+  # Install Android NDK
+  - wget https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip
+  - unzip -q android-ndk-r13b-linux-x86_64.zip
+  - export ANDROID_NDK=$(pwd)/android-ndk-r13b
+  - export ANDROID_NDK_HOME=$ANDROID_NDK
+  - export PATH=$PATH:$ANDROID_NDK
+
+  # Install Apache Ant
+  - sudo apt-get install -y ant
+
+  # Install Java JDK
+  - sudo apt-get install -y oracle-java8-installer
+
+  - printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n$ANT_HOME\n/usr/lib/jvm/java-8-openjdk\n" | haxelib run lime setup android
 script:
+  - travis_wait haxelib run lime build android
   - travis_wait haxelib run lime build linux
   - travis_wait haxelib run lime build mac
   - travis_wait haxelib run lime build windows
@@ -23,6 +72,7 @@ deploy:
     secure: kaNIT9RrAMKgsfAGJ63xRnArMUJCZJIRrRJqpYVMV/hKq0NF8BNvtmTiXflFofnSyFrQDLaF5uEH3OSCHkbAS7YtK8rlg6VTR75FhHYoPkdMVDxlrLUzAGj81aJV0YuujLOxh+o/0xcpen+yoxIV6kL1S0H2juWYlgayCou7nGoRCf06A0eR1MJBjluj+Tovi+gIgqFc9g4EBlRyzeMK7TxWAzULVpxBbz635mXGde8ZrGpTTd2Jxsum3wbSsk0/xWkpA4YUwy3F8eqiyTxwp9h6Qaoe/7K9mMpKfb4l48p78sWCNwjlUullzh5kQA06tPjtMUzx95C7Awd5jNzJdvqPH3VTt7+/ejSW8PcXjlLJaI0ldFV6+PgOqa2ywcSFmovw1nVUPdDDFF9ToNeanmdiwAobiUAHxr4cmB9oUreoqWNLuITJRBU2kYHbrZkuNsnMXYQIzgjbcmE/5hycnIsWIQU4zuVndbxCnaMZEdZD8cpFOtDm7JcGCRZyyl9hU3J4B+iOFwZ+Lb6tq4LC6UvfQy+r36963NcIweHF+mPjXdViYJf8yXyuahLcrK66nE6iU18+ZnmSJ7mYCaz46unLbxxC5avMy4KTu6VsYiM2tvi+yhg/4M+kWOW8SMI4nKb6c2TC01fHudpzXZVhTnHAPP1QTQjx9fFAkI6vAuI=
   file_glob: true
   file:
+    - export/android/bin/bin/FollowTheBeat-debug.apk
     - export/linux64/cpp/FollowTheBeat*.zip
     - export/mac64/neko/FollowTheBeat*.zip
     - export/windows/neko/FollowTheBeat*.zip
@@ -30,6 +80,7 @@ deploy:
   on:
     tags: true
 after_deploy:
+  - rm -f export/android/bin/bin/FollowTheBeat-debug.apk
   - rm -f export/linux64/cpp/FollowTheBeat*.zip
   - rm -f export/mac64/neko/FollowTheBeat*.zip
   - rm -f export/windows/neko/FollowTheBeat*.zip
