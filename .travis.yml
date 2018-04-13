@@ -41,10 +41,8 @@ install:
 
   - printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n$ANT_HOME\n/usr/lib/jvm/java-8-openjdk\n" | haxelib run lime setup android
 script:
-  - which android # DEBUG
   - travis_wait haxelib run lime build android
-  - cat export/android/bin/build.xml # DEBUG
-  - env # DEBUG
+  - find export/android/bin | grep "\.apk" # DEBUG
   - travis_wait haxelib run lime build linux
   - travis_wait haxelib run lime build mac
   - travis_wait haxelib run lime build windows
