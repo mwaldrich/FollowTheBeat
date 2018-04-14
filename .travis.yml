@@ -22,6 +22,7 @@ cache:
   directories:
   - "/home/travis/haxe/lib"
 before_install:
+  - sudo apt-add-repository -y ppa:openjdk-r/ppa
   - sudo apt-get -qq update
 install:
   # Install HaxeFlixel
@@ -29,6 +30,11 @@ install:
   - travis_wait haxelib --always install flixel
   - yes | travis_wait haxelib run lime setup
   - travis_wait haxelib --always set hxcpp 3.4.64
+
+  # Install JDK
+  - sudo apt-get install -y openjdk-8-jdk
+  - sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
+  - echo $(java -version)
 
   # Install Android SDK, platform-tools, and API level 19
   - export ANDROID_HOME=$(pwd)/android-sdk
@@ -53,10 +59,7 @@ install:
   # Install Apache Ant
   - sudo apt-get install -y ant
 
-  # Install Java JDK
-  - sudo apt-get install -y oracle-java8-installer
-
-  - printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n$ANT_HOME\n/usr/lib/jvm/java-8-openjdk\n" | haxelib run lime setup android
+  - printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n$ANT_HOME\n/usr/lib/jvm/java-1.8.0-openjdk-amd64\n" | haxelib run lime setup android
 script:
   - travis_wait haxelib run lime build android
   - travis_wait haxelib run lime build linux
