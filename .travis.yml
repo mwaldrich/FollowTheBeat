@@ -18,57 +18,18 @@
 language: haxe
 os:
   - linux
+  - osx
 cache:
   directories:
   - "/home/travis/haxe/lib"
 before_install:
-  - sudo apt-add-repository -y ppa:openjdk-r/ppa
-  - sudo apt-get -qq update
+  sudo -E ./travis/before_install.sh
 install:
-  # Install HaxeFlixel
-  - echo $(haxelib config)
-  - travis_wait haxelib --always install flixel
-  - yes | travis_wait haxelib run lime setup
-  - travis_wait haxelib --always set hxcpp 3.4.64
-
-  # Install JDK
-  - sudo apt-get install -y openjdk-8-jdk
-  - sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
-  - echo $(java -version)
-
-  # Install Android SDK, platform-tools, and API level 19
-  - export ANDROID_HOME=$(pwd)/android-sdk
-  - mkdir $ANDROID_HOME
-  # SDK version must be >= 25.2.3 for sdkmanager and < 25.3.0 for tools/ant
-  # This is one of the few versions that actually works :)
-  - wget http://dl-ssl.google.com/android/repository/tools_r25.2.3-linux.zip
-  - unzip -q tools_r25.2.3-linux.zip
-  - mv tools $ANDROID_HOME
-  - export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
-  - yes | sdkmanager platform-tools
-  - yes | sdkmanager "build-tools;24.0.1"
-  - travis_wait sdkmanager "platforms;android-19"
-
-  # Install Android NDK
-  - wget https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip
-  - unzip -q android-ndk-r13b-linux-x86_64.zip
-  - export ANDROID_NDK=$(pwd)/android-ndk-r13b
-  - export ANDROID_NDK_HOME=$ANDROID_NDK
-  - export PATH=$PATH:$ANDROID_NDK
-
-  # Install Apache Ant
-  - sudo apt-get install -y ant
-
-  - printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n$ANT_HOME\n/usr/lib/jvm/java-1.8.0-openjdk-amd64\n" | haxelib run lime setup android
+  ./travis/install.sh
 script:
-  - travis_wait haxelib run lime build android
-  - travis_wait haxelib run lime build linux
-  - travis_wait haxelib run lime build mac
-  - travis_wait haxelib run lime build windows
+  ./travis/script.sh
 before_deploy:
-  - travis_wait haxelib run lime deploy linux
-  - travis_wait haxelib run lime deploy mac
-  - travis_wait haxelib run lime deploy windows
+  ./travis/before_deploy.sh
 deploy:
   provider: releases
   api_key:
@@ -77,7 +38,7 @@ deploy:
   file:
     - export/android/bin/bin/FollowTheBeat-debug.apk
     - export/linux64/cpp/FollowTheBeat*.zip
-    - export/mac64/neko/FollowTheBeat*.zip
+    - export/mac64/cpp/FollowTheBeat*.zip
     - export/windows/neko/FollowTheBeat*.zip
   skip_cleanup: true
   on:
@@ -85,5 +46,5 @@ deploy:
 after_deploy:
   - rm -f export/android/bin/bin/FollowTheBeat-debug.apk
   - rm -f export/linux64/cpp/FollowTheBeat*.zip
-  - rm -f export/mac64/neko/FollowTheBeat*.zip
+  - rm -f export/mac64/cpp/FollowTheBeat*.zip
   - rm -f export/windows/neko/FollowTheBeat*.zip
