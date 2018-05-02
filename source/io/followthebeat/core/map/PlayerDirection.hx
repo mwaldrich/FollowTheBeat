@@ -19,4 +19,5 @@ enum PlayerDirection {
 	Up;
 	Left;
 	Right;
+	None;
 }

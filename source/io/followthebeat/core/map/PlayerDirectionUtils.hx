@@ -16,11 +16,18 @@
 package io.followthebeat.core.map;
 
 class PlayerDirectionUtils {
-	public static function toDirection(playerDirection:PlayerDirection):Direction {
-		return switch (playerDirection) {
-			case Up: Direction.Up;
-			case Left: Direction.Left;
-			case Right: Direction.Right;
+	public static function manipulateX(x:Int, direction:PlayerDirection):Int {
+		return switch(direction) {
+			case Left: x - 1;
+			case Right: x + 1;
+			default: x;
+		};
+	}
+
+	public static function manipulateY(y:Int, direction:PlayerDirection):Int {
+		return switch(direction) {
+			case Up: y + 1;
+			default: y;
 		}
 	}
 }

@@ -17,6 +17,8 @@ package io.followthebeat.core.map;
 
 import flixel.math.FlxRandom;
 
+import io.followthebeat.core.rhythm.BeatUtils;
+
 class Coordinate {
 	public var x:Int;
 	public var y:Int;
@@ -46,6 +48,26 @@ class Coordinate {
 		return new Coordinate(DirectionUtils.manipulateX(this.x, direction), DirectionUtils.manipulateY(this.y, direction));
 	}
 
+	public function manipulatePlayer(playerDirection:PlayerDirection)
+		:Coordinate {
+
+		return new Coordinate(
+			PlayerDirectionUtils.manipulateX(this.x, playerDirection),
+            PlayerDirectionUtils.manipulateY(this.y, playerDirection));
+	}
+
+	// Is this coordinate on the screen at the given beat?
+	public function isOnScreen(beat:Int):Bool {
+		// Inclusive
+		var minimumY:Int = BeatUtils.minimumY(beat);
+
+		// Exclusive
+		var maximumY:Int = minimumY + 4;
+
+		return this.y >= minimumY
+			&& this.y < maximumY;
+	}
+
 	public function toString():String {
 		return "(" + this.x + ", " + this.y + ")";
 	}
@@ -55,8 +77,8 @@ class Coordinate {
 	}
 
 	public static function generateRandomCoordinate(minX:Int, minY:Int, maxX:Int, maxY:Int, random:FlxRandom):Coordinate {
-		var x = random.int(minX, maxX);
-		var y = random.int(minY, maxY);
+		var x = random.int(minX, maxX - 1);
+		var y = random.int(minY, maxY - 1);
 
 		return new Coordinate(x, y);
 	}

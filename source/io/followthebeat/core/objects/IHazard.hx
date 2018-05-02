@@ -20,17 +20,40 @@ import io.followthebeat.game.objects.AGameHazard;
 import io.followthebeat.core.map.Coordinate;
 import io.followthebeat.core.map.MapSegment;
 
+// Represents a hazard in the game. Hazards can have three relationships with
+// the map segment:
+// 
+// - damage
+//     Hazards can damage players on any coordinate in their map segment.
+// - block
+//     Hazards can block players from moving onto any coordinate in their map
+//     segment. If the player remains on a coordinate that becomes blocked,
+//     they will be damaged.
+// - occupy
+//     Hazards can occupy any coordinate in their map segment. This has no
+//     relevance to the player; it is only relevant when generating map
+//     segments. Occupation is used to prevent hazards from being placed on top
+//     of each other. Hazards should occupy any coordinates where it wouldn't
+//     be reasonable for other hazards to be placed. A hazard need not occupy
+//     a location to damage it.
 interface IHazard {
-	// What is the main location of this hazard? This is measured
-	// as an absolute coordinate.
-	public function getLocation():Coordinate;
-
-	// Is this hazard damaging the given location
-	// on a particular beat?
+	// Is this hazard damaging the given location on the given beat?
 	public function isDamaging(location:Coordinate, beat:Int):Bool;
+
+	// Get the locations being damaged by this hazard on the given beat.
+	public function getDamagedLocations(beat:Int):Array<Coordinate>;
+
+	// Is this hazard blocking the given location on the given beat?
+	public function isBlocking(location:Coordinate, beat:Int):Bool;
+
+	// Get the locations being blocked by this hazard on the given beat.
+	public function getBlockedLocations(beat:Int):Array<Coordinate>;
 
 	// Is the given coordinate occupied by this hazard?
 	public function isOccupying(location:Coordinate):Bool;
+
+	// Get the locations being occupied by this hazard.
+	public function getOccupiedLocations():Array<Coordinate>;
 
 	// Is this hazard in a valid location? Will it only be
 	// affecting tiles that are in the map? This answer

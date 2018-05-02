@@ -17,7 +17,7 @@ package io.followthebeat.core.levelgen.map;
 
 import flixel.math.FlxRandom;
 
-class MapSegmentGenerator {
+class MapSegmentGeneratorAlpha {
 
 	// How many parts should the map be split into to ensure consistency?
 	// This should be either a common factor of the segment length.
@@ -84,7 +84,7 @@ class MapSegmentGenerator {
 				return;
 			} else {
 				segment.hazardList.pop();
-				trace("regenerating random hazard MSG:72");
+				trace("regenerating random hazard MSGa:72");
 			}
 		}
 	}

@@ -17,11 +17,17 @@ package io.followthebeat.core.levelgen.objects;
 
 import flixel.math.FlxRandom;
 
-class RhythmBombGenerator implements HazardGenerator {
+import io.followthebeat.core.objects.IHazard;
+import io.followthebeat.core.map.Coordinate;
+import io.followthebeat.core.map.MapSegment;
+
+import io.followthebeat.core.objects.RhythmBomb;
+
+class RhythmBombGenerator implements IHazardGenerator {
 	public function new() {}
 
 	// TODO: update to take advantage of the offset feature
-	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):Hazard {
+	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):IHazard {
 		// We are currently only generating Rhythm Bombs that explode
 		// either every 4 beats or every 2 beats. This means the
 		// inherent lower and upper bounds are 0.25 and 0.5,

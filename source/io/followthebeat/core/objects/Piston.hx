@@ -44,7 +44,7 @@ class Piston implements IHazard {
 		this.extendedLocation = this.location.manipulate(this.direction);
 	}
 
-	public function getLocation():Coordinate {
+	public function getBaseLocation():Coordinate {
 		return this.location;
 	}
 
@@ -60,9 +60,38 @@ class Piston implements IHazard {
 		return this.timing;
 	}
 
+	public function isExtended(beat:Int):Bool {
+		return (beat % this.timing) == this.offset;
+	}
+
 	public function isDamaging(location:Coordinate, beat:Int):Bool {
 		return (this.location.equals(location))
 			|| (this.isExtended(beat) && extendedLocation.equals(location));
+	}
+
+	public function getDamagedLocations(beat:Int):Array<Coordinate> {
+		if (this.isExtended(beat)) {
+			return [this.location, this.extendedLocation];
+		} else {
+			return [this.location];
+		}
+	}
+
+	public function isBlocking(location:Coordinate, beat:Int):Bool {
+		return this.location.equals(location);
+	}
+
+	public function getBlockedLocations(beat:Int):Array<Coordinate> {
+		return [this.location];
+	}
+
+	public function isOccupying(location:Coordinate):Bool {
+		return location.equals(this.location)
+			|| location.equals(this.extendedLocation);
+	}
+
+	public function getOccupiedLocations():Array<Coordinate> {
+		return [this.location, this.extendedLocation];
 	}
 
 	public function isValid(segment:MapSegment, beat:Int):Bool {
@@ -92,15 +121,6 @@ class Piston implements IHazard {
 		}
 
 		return accumulatedDifficulty;
-	}
-
-	public function isOccupying(location:Coordinate):Bool {
-		return location.equals(this.location)
-			|| location.equals(this.extendedLocation);
-	}
-
-	public function isExtended(beat:Int):Bool {
-		return (beat % this.timing) == this.offset;
 	}
 
 	public function generateGameHazard():AGameHazard {

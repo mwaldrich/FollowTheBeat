@@ -64,8 +64,7 @@ class Player {
 	}
 
 	public function move(playerDirection:PlayerDirection):Player {
-		var direction:Direction = PlayerDirectionUtils.toDirection(playerDirection);
-		return new Player(this.location.manipulate(direction), direction);
+		return new Player(this.location.manipulatePlayer(playerDirection), direction);
 	}
 
 	// Returns a new Player that is moved up
@@ -84,8 +83,7 @@ class Player {
 	}
 
 	public function canMove(playerDirection:PlayerDirection, mapSegment:MapSegment, beat:Int):Bool {
-		var direction:Direction = PlayerDirectionUtils.toDirection(playerDirection);
-		return mapSegment.isWithinBounds(this.location.manipulate(direction), beat);
+		return mapSegment.isWithinBounds(this.location.manipulatePlayer(playerDirection), beat);
 	}
 
 	// Can this player move up?

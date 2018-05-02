@@ -29,6 +29,7 @@ import io.followthebeat.core.map.Direction;
 import io.followthebeat.core.map.MapSegment;
 import io.followthebeat.core.objects.Piston;
 import io.followthebeat.core.objects.RhythmBomb;
+import io.followthebeat.core.levelgen.map.MapSegmentGeneratorBeta;
 
 import io.followthebeat.game.states.MenuState;
 
@@ -36,6 +37,7 @@ class Main extends Sprite {
 	public static inline var tileScale:Int = Std.int(360 / 3);
 	public static inline var segmentWidth:Int = 3;
 	public static inline var segmentHeight:Int = 8;
+	public static inline var displaySegmentHeight:Int = 4;
 	public static inline var beatTime:Int = 500;
 	public static inline var songLength:Int = 32;
 	public static inline var animationFPS:Int = 15;
@@ -56,23 +58,8 @@ class Main extends Sprite {
 		random = new FlxRandom(1);
 
 		// Initialize exampleSegment1
-		exampleSegment1 = new MapSegment(0, segmentWidth, segmentHeight);
-		// exampleSegment1.addHazard(new Piston(new Coordinate(1, 1), Direction.Right, 2));
-		// exampleSegment1.addHazard(new RhythmBomb(new Coordinate(2, 2), 1));
-		// exampleSegment1.addHazard(new RhythmBomb(new Coordinate(1, 2), 2));
-		// exampleSegment1.addHazard(new RhythmBomb(new Coordinate(1, 1), 4));
-		// exampleSegment1.addHazard(new RhythmBomb(new Coordinate(2, 1), 8));
-		exampleSegment1.addHazard(new Piston(new Coordinate(2, 0), Direction.Up, 8));
-		exampleSegment1.addHazard(new Piston(new Coordinate(0, 1), Direction.Right, 4));
-		exampleSegment1.addHazard(new Piston(new Coordinate(2, 2), Direction.Left, 2));
-		exampleSegment1.addHazard(new Piston(new Coordinate(0, 3), Direction.Down, 1));
-		exampleSegment1.addHazard(new RhythmBomb(new Coordinate(2, 3), 2));
-		exampleSegment1.addHazard(new RhythmBomb(new Coordinate(0, 0), 4));
-		// exampleSegment1.addHazard(new RhythmBomb(new Coordinate(2, 1), 4));
-		// exampleSegment1.addHazard(new RhythmBomb(new Coordinate(2, 1), 4));
-		exampleSegment2 = new MapSegment(8, segmentWidth, segmentHeight);
-		exampleSegment2.addHazard(new RhythmBomb(new Coordinate(2, 8), 2));
-		exampleSegment2.addHazard(new RhythmBomb(new Coordinate(0, 9), 4));
+		exampleSegment1 = MapSegmentGeneratorBeta.generateMapSegment(0, 3, 8, 6.0, random);
+		exampleSegment2 = MapSegmentGeneratorBeta.generateMapSegment(0, 3, 8, 2.0, random);
 
 		addChild(new FlxGame(0, 0, MenuState, true));
 	}

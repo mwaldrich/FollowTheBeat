@@ -62,6 +62,7 @@ class MapSegment {
 			== location.y;
 	}
 
+	/*
 	public function amountOfHazardsOnRow(row:Int) {
 		var accumulated:Int;
 		accumulated = 0;
@@ -74,6 +75,7 @@ class MapSegment {
 
 		return accumulated;
 	}
+	*/
 
 	// Is the given coordinate occupied by any hazard?
 	public function isOccupied(location:Coordinate):Bool {

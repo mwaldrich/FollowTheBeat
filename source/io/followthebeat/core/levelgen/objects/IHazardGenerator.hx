@@ -17,10 +17,14 @@ package io.followthebeat.core.levelgen.objects;
 
 import flixel.math.FlxRandom;
 
+import io.followthebeat.core.objects.IHazard;
+import io.followthebeat.core.map.Coordinate;
+import io.followthebeat.core.map.MapSegment;
+
 interface IHazardGenerator {
 	// Generates a random instance of this hazard within the given range of
 	// difficulties. As always the lower bound is inclusive and the upper
 	// bound exclusive. If a hazard of this type cannot be generated within
 	// the given difficulty bounds, this WILL return null.
-	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):Hazard;
+	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):IHazard;
 }

@@ -51,8 +51,28 @@ class RhythmBomb implements IHazard {
 			&& this.location.equals(location);
 	}
 
+	public function getDamagedLocations(beat:Int):Array<Coordinate> {
+		if (this.isExploding(beat)) {
+			return [this.location];
+		} else {
+			return [];
+		}
+	}
+
+	public function isBlocking(location:Coordinate, beat:Int):Bool {
+		return false;
+	}
+
+	public function getBlockedLocations(beat:Int):Array<Coordinate> {
+		return [];
+	}
+
 	public function isOccupying(location:Coordinate):Bool {
 		return this.location.equals(location);
+	}
+
+	public function getOccupiedLocations():Array<Coordinate> {
+		return [this.location];
 	}
 
 	public function isValid(segment:MapSegment, beat:Int):Bool {
