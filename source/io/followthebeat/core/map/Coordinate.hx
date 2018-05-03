@@ -82,4 +82,20 @@ class Coordinate {
 
 		return new Coordinate(x, y);
 	}
+
+	// Lower bounds are inclusive, upper bounds are exclusive
+	public static function allCoordinatesWithin(minX:Int, minY:Int, maxX:Int, maxY:Int):Array<Coordinate> {
+		var width:Int = maxX - minX;
+		var height:Int = maxY - minY;
+
+		var coordinates:Array<Coordinate> = new Array<Coordinate>();
+
+		for (x in minX...maxX) {
+			for (y in minY...maxY) {
+				coordinates.push(new Coordinate(x, y));
+			}
+		}
+
+		return coordinates;
+	}
 }

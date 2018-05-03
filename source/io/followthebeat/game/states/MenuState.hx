@@ -34,7 +34,7 @@ class MenuState extends FlxState {
 	private var playButton:FlxButton;
 	private var quitButton:FlxButton;
 
-	override public function create():Void {
+	public override function create():Void {
 		FlxG.camera.fade(FlxColor.BLACK, .33, true);
 
 		super.create();
@@ -84,7 +84,7 @@ class MenuState extends FlxState {
 		add(playButton);
 	}
 
-	override public function update(elapsed:Float):Void {
+	public override function update(elapsed:Float):Void {
 		super.update(elapsed);
 	}
 

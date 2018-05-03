@@ -52,7 +52,7 @@ class MapSegmentGeneratorBeta {
 
 		trace("start: " + start + "; end = " + end + "; difficulty: " + difficulty + "; consistency = " + consistency);
 
-		if ((end - start) <= consistency || difficulty <= 0.5) {
+		if ((end - start) <= consistency || difficulty <= 0.25) {
 			trace("hit base case in MSGb#generate; start: " + start + "; end = " + end + "; difficulty: " + difficulty + "; consistency = " + consistency);
 			while (true) {
 				trace("adding a hazard in base case");
@@ -63,10 +63,13 @@ class MapSegmentGeneratorBeta {
 					trace("finished base case");
 					break;
 				} else {
-					try {
-						addRandomHazard(mapSegment, start, end, difficulty, path, random);
-					} catch (message:String) {
-						// ugh
+					var newHazard = HazardGeneratorUtils.generateRandomHazard(start, end, 0, difficulty, mapSegment, path, random);
+					if (newHazard != null) {
+						mapSegment.hazardList.push(newHazard);
+					} else {
+						// No hazards can be generated. Even though the
+						// difficulty has not been reached, there is
+						// nothing else to do here.
 						break;
 					}
 				}
@@ -83,6 +86,7 @@ class MapSegmentGeneratorBeta {
 		}
 	}
 
+	/*
 	private static function addRandomHazard(segment:MapSegment, start:Int,
 		end:Int, maxDifficulty:Float, path:List<Coordinate>,
 		random:FlxRandom):Void {
@@ -102,7 +106,7 @@ class MapSegmentGeneratorBeta {
 			var newCoordinate = Coordinate.generateRandomCoordinate(0, start, segment.width, end, random);
 
 			// TODO: don't make this 0.25
-			var newHazard = HazardGeneratorUtils.generateRandomHazard(newCoordinate, 0.25, maxDifficulty, segment, random);
+			var newHazard = HazardGeneratorUtils.generateRandomHazard(start, end, 0.25, maxDifficulty, mapSegment, path, random);
 
 			trace(newHazard);
 
@@ -116,14 +120,15 @@ class MapSegmentGeneratorBeta {
 
 		}
 	}
+	*/
 
 	// Ensures that:
 	//   - the given hazard does not block any location on the path when the
 	//     player is traveling there
 	//   - the given hazard does not occupy any location that other hazards are
 	//     occupying
-	private static function isHazardValid(hazard:IHazard, mapSegment:MapSegment, path:List<Coordinate>)
-		:Bool {
+	public static function isHazardValid(hazard:IHazard, mapSegment:MapSegment,
+	    path:List<Coordinate>):Bool {
 
 		// Check to make sure the player path is unobstructed by this hazard
 		var beat:Int = 0;
@@ -131,7 +136,6 @@ class MapSegmentGeneratorBeta {
 		for (coordinate in path) {
 			if (hazard.isDamaging(coordinate, beat)
 			|| hazard.isBlocking(coordinate, beat)) {
-				trace("isHazardValid: no way jose (blocking the player)!");
 				return false;
 			}
 
@@ -143,12 +147,10 @@ class MapSegmentGeneratorBeta {
 
 		for (coordinate in hazard.getOccupiedLocations()) {
 			if (mapSegment.isOccupied(coordinate)) {
-				trace("isHazardValid: no way jose (ocupado)!");
 				return false;
 			}
 		}
 
-		trace("isHazardValid: you betcha!");
 		return true;
 	}
 

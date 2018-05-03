@@ -28,30 +28,50 @@ import io.followthebeat.core.objects.Piston;
 class PistonGenerator implements IHazardGenerator {
 	public function new() {}
 
-	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):IHazard {
-		if (minDifficulty <= 0.25 && !mapSegment.isOccupied(location)) {
-
-			var validTimings:Array<Int> = [1, 2, 4].filter(function(i:Int) {
-				return maxDifficulty >= (1 / i);
+	public function generate(start:Int, end:Int, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, path:List<Coordinate>, random:FlxRandom):IHazard {
+		var validLocations:Array<Coordinate> = Coordinate.allCoordinatesWithin(0, start, 3, end)
+			.filter(function(c:Coordinate) {
+				return !mapSegment.isOccupied(c);
 			});
-			trace("valid timings: " + validTimings.join(";"));
 
-			// If there isn't a timing that fits the difficulty requirement,
-			// abort now.
-			if (validTimings.length < 1) {
-				trace("aborting piston generation because no valid timing exists");
-				return null;
-			}
+		// If there isn't a location that isn't occupied, abort now.
+		if (validLocations.length < 1) {
+			trace("aborting piston generation because no valid location exists");
+			return null;
+		}
 
-			var timing:Int = validTimings[random.int(0, validTimings.length - 1)];
+		random.shuffle(validLocations);
 
-			var allDirections:Array<Direction> = Type.allEnums(Direction);
-			random.shuffle(allDirections);
+		var validTimings:Array<Int> = [1, 2, 4].filter(function(i:Int) {
+			return maxDifficulty >= (1 / i);
+		});
 
+		// If there isn't a timing that fits the difficulty requirement,
+		// abort now.
+		if (validTimings.length < 1) {
+			trace("aborting piston generation because no valid timing exists");
+			return null;
+		}
+
+		random.shuffle(validTimings);
+
+		var allOffsets:Array<Int> = [0, 1, 2, 3];
+		random.shuffle(allOffsets);
+
+		var allDirections:Array<Direction> = Type.allEnums(Direction);
+		random.shuffle(allDirections);
+
+		for (location in validLocations) {
 			for (direction in allDirections) {
-				if (mapSegment.isWithinBounds(location.manipulate(direction), BeatUtils.minimumBeat(mapSegment.offsetY))
-				&& !mapSegment.isOccupied(location.manipulate(direction))) {
-					return new Piston(location, direction, timing);
+				for (timing in validTimings) {
+					for (offset in allOffsets) {
+						// If these 4 nested for-loops scare you, know that
+						// they scare me, too.
+						var piston:Piston = new Piston(location, direction, timing);
+						if (HazardGeneratorUtils.isHazardValid(piston, mapSegment, path)) {
+							return piston;
+						}
+					}
 				}
 			}
 		}

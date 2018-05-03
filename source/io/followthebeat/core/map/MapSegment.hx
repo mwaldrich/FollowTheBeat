@@ -47,6 +47,7 @@ class MapSegment {
 		return coordinate.isWithinBounds(0, BeatUtils.minimumY(beat), this.width, this.height);
 	}
 
+	// Is the given coordinate damaged by any hazard?
 	public function isDamaging(location:Coordinate, beat:Int):Bool {
 		for (hazard in this.hazardList) {
 			if (hazard.isDamaging(location, beat)) {
@@ -62,25 +63,21 @@ class MapSegment {
 			== location.y;
 	}
 
-	/*
-	public function amountOfHazardsOnRow(row:Int) {
-		var accumulated:Int;
-		accumulated = 0;
-		
-		for (hazard in this.hazardList) {
-			if (hazard.getLocation().x == row) {
-				accumulated++;
-			}
-		}
-
-		return accumulated;
-	}
-	*/
-
 	// Is the given coordinate occupied by any hazard?
 	public function isOccupied(location:Coordinate):Bool {
 		for (hazard in this.hazardList) {
 			if (hazard.isOccupying(location)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// Is the given coordinate blocked by any hazard?
+	public function isBlocked(location:Coordinate, beat:Int):Bool {
+		for (hazard in this.hazardList) {
+			if (hazard.isBlocking(location, beat)) {
 				return true;
 			}
 		}

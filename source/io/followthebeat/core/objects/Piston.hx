@@ -61,7 +61,7 @@ class Piston implements IHazard {
 	}
 
 	public function isExtended(beat:Int):Bool {
-		return (beat % this.timing) == this.offset;
+		return (beat % this.timing) == (this.offset % this.timing);
 	}
 
 	public function isDamaging(location:Coordinate, beat:Int):Bool {

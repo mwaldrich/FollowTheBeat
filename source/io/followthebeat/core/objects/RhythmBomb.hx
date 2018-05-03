@@ -80,7 +80,7 @@ class RhythmBomb implements IHazard {
 	}
 
 	public function isExploding(beat:Int):Bool {
-		return (beat % this.timing) == this.offset;
+		return (beat % this.timing) == (this.offset % this.timing);
 	}
 
 	public function getDifficulty():Float {

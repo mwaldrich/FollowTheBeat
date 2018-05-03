@@ -56,6 +56,10 @@ class GamePlayer extends AGameObject implements IControllableGamePlayer {
 		return sprites;
 	}
 
+	public function getPlayer():Player {
+		return this.player;
+	}
+
 	// Moves player
 	public function move(direction:PlayerDirection, newBeat:Int):Void {
 		var mapSegment:MapSegment = continuousMap.getMapSegment(player.getLocation());

@@ -27,31 +27,52 @@ class RhythmBombGenerator implements IHazardGenerator {
 	public function new() {}
 
 	// TODO: update to take advantage of the offset feature
-	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):IHazard {
-		// We are currently only generating Rhythm Bombs that explode
-		// either every 4 beats or every 2 beats. This means the
-		// inherent lower and upper bounds are 0.25 and 0.5,
-		// respectively.
-
-		if (minDifficulty <= 0.25 && !mapSegment.isOccupied(location)) {
-			var validTimings:Array<Int> = [1, 2, 4].filter(function(i:Int) {
-				return maxDifficulty >= (1 / i);
+	public function generate(start:Int, end:Int, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, path:List<Coordinate>, random:FlxRandom):IHazard {
+		var validLocations:Array<Coordinate> = Coordinate.allCoordinatesWithin(0, start, 3, end)
+			.filter(function(c:Coordinate) {
+				return !mapSegment.isOccupied(c);
 			});
 
-			// If there isn't a timing that fits the difficulty requirement,
-			// abort now.
-			if (validTimings.length < 1) {
-				trace("aborting rhythm bomb generation because no valid timing exists");
-				return null;
-			}
-
-			var timing:Int = validTimings[random.int(0, validTimings.length - 1)];
-
-			return new RhythmBomb(location, timing);
-		} else {
-			// A Rhythm Bomb cannot be generated in this location
-			// within the given difficulty bounds.
+		// If there isn't a location that isn't occupied, abort now.
+		if (validLocations.length < 1) {
+			trace("aborting rhythm bomb generation because no valid location exists");
 			return null;
 		}
+
+		random.shuffle(validLocations);
+
+		var validTimings:Array<Int> = [1, 2, 4].filter(function(i:Int) {
+			return maxDifficulty >= (1 / i);
+		});
+		trace("valid timings: " + validTimings.join(";"));
+
+		// If there isn't a timing that fits the difficulty requirement,
+		// abort now.
+		if (validTimings.length < 1) {
+			trace("aborting rhythm bomb generation because no valid timing exists");
+			return null;
+		}
+
+		random.shuffle(validTimings);
+
+		var allOffsets:Array<Int> = [0, 1, 2, 3];
+		random.shuffle(allOffsets);
+
+		for (location in validLocations) {
+			for (timing in validTimings) {
+				for (offset in allOffsets) {
+					var rhythmBomb:RhythmBomb = new RhythmBomb(location, timing,
+					    offset);
+
+					if (HazardGeneratorUtils
+						.isHazardValid(rhythmBomb, mapSegment, path)) {
+						return rhythmBomb;
+					}
+				}
+			}
+		}
+
+		// No rhythm bomb can be generated with the given constraints.
+		return null;
 	}
 }

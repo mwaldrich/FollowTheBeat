@@ -20,19 +20,63 @@ import flixel.math.FlxRandom;
 import io.followthebeat.core.objects.IHazard;
 import io.followthebeat.core.map.Coordinate;
 import io.followthebeat.core.map.MapSegment;
+import io.followthebeat.core.rhythm.BeatUtils;
 
 class HazardGeneratorUtils {
 
 	private static var generators = [new RhythmBombGenerator() , new PistonGenerator()];
 
-	// Generates a random hazard within the given range of difficulties.
-	// As always, the lower bound is inclusive and the upper bound
+	// Generates a random hazard within the given range of difficulties
+	// and the given range of y-values (start to end).
+	// As always, the lower bounds are inclusive and the upper bounds
 	// exclusive. This may return null.
-	public static function generateRandomHazard(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):IHazard {
-		var currentGenerator:IHazardGenerator = generators[random.int(0, generators.length - 1)];
+	public static function generateRandomHazard(start:Int, end:Int, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, path:List<Coordinate>, random:FlxRandom):IHazard {
+		var shuffledGenerators:Array<IHazardGenerator> = generators.copy();
+		random.shuffle(shuffledGenerators);
 
-		var generatedHazard = currentGenerator.generate(location, minDifficulty, maxDifficulty, mapSegment, random);
+		for (generator in shuffledGenerators) {
+			var hazard:IHazard = generator.generate(start, end, minDifficulty, maxDifficulty, mapSegment, path, random);
 
-		return generatedHazard;
+			if (hazard != null) {
+				return hazard;
+			}
+		}
+
+		return null;
+	}
+
+	// Ensures that:
+	//   - the given hazard does not block any location on the path when the
+	//     player is traveling there
+	//   - the given hazard does not occupy any location that other hazards are
+	//     occupying
+	public static function isHazardValid(hazard:IHazard, mapSegment:MapSegment,
+	    path:List<Coordinate>):Bool {
+
+		// Check to make sure the player path is unobstructed by this hazard
+		var beat:Int = 0;
+
+		for (coordinate in path) {
+			if (hazard.isDamaging(coordinate, beat)
+			|| hazard.isBlocking(coordinate, beat)) {
+				trace("isHazardValid: no way jose (blocking the player)!");
+				return false;
+			}
+
+			beat++;
+		}
+
+		// Make sure the given hazard does not occupy any spaces occupied by
+		// other hazards, as well as make sure the occupied locations are
+		// in bounds.
+		for (coordinate in hazard.getOccupiedLocations()) {
+			if (!mapSegment.isWithinBounds(coordinate,
+				    BeatUtils.minimumBeat(mapSegment.offsetY))
+			|| mapSegment.isOccupied(coordinate)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

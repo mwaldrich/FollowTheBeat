@@ -181,6 +181,30 @@ class SingleplayerState extends FlxState implements IContinuousGameMap implement
 				this.processNewBeat();
 			}
 		}
+
+		this.checkGameOver();
+	}
+
+	// Checks if the game is over and ends the game if necessary
+	private function checkGameOver():Void {
+		if (this.isGameOver()) {
+			this.song.stop();
+			FlxG.switchState(new SingleplayerGameOverState(this.currentBeat));
+		}
+	}
+
+	// Is the game over? (has the window for player movement
+	// ended and is the player being hurt?)
+	private function isGameOver():Bool {
+		if (this.beatProgress >= (Main.tolerance / 2)) {
+
+			var location:Coordinate = this.player.getPlayer().getLocation();
+
+			return !location.isOnScreen(this.currentBeat)
+				|| this.getMapSegment(location).isDamaging(location, this.currentBeat);
+		}
+
+		return false;
 	}
 
 	// Processes a beat for the entire game

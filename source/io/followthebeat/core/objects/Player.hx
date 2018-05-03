@@ -83,7 +83,10 @@ class Player {
 	}
 
 	public function canMove(playerDirection:PlayerDirection, mapSegment:MapSegment, beat:Int):Bool {
-		return mapSegment.isWithinBounds(this.location.manipulatePlayer(playerDirection), beat);
+		var newLocation:Coordinate = this.location.manipulatePlayer(playerDirection);
+		return newLocation.isOnScreen(beat)
+			&& mapSegment.isWithinBounds(newLocation, beat)
+			&& !mapSegment.isBlocked(newLocation, beat);
 	}
 
 	// Can this player move up?
