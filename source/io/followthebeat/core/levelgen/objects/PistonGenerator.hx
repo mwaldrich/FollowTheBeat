@@ -17,20 +17,41 @@ package io.followthebeat.core.levelgen.objects;
 
 import flixel.math.FlxRandom;
 
-class PistonGenerator implements HazardGenerator {
+import io.followthebeat.core.objects.IHazard;
+import io.followthebeat.core.map.Coordinate;
+import io.followthebeat.core.map.MapSegment;
+import io.followthebeat.core.map.Direction;
+import io.followthebeat.core.rhythm.BeatUtils;
+
+import io.followthebeat.core.objects.Piston;
+
+class PistonGenerator implements IHazardGenerator {
 	public function new() {}
 
-	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):Hazard {
-		// We are currently only generating Pistons that explode either
-		// every 4 beats or every 2 beats. This means the inherent lower
-		// and upper bounds are 1.25 and 1.5, respectively.
+	public function generate(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):IHazard {
+		if (minDifficulty <= 0.25 && !mapSegment.isOccupied(location)) {
 
-		if (minDifficulty <= 1.25 && maxDifficulty > 1.5
-		&& !mapSegment.isOccupied(location)) {
-			for (direction in Type.allEnums(Direction)) {
+			var validTimings:Array<Int> = [1, 2, 4].filter(function(i:Int) {
+				return maxDifficulty >= (1 / i);
+			});
+			trace("valid timings: " + validTimings.join(";"));
+
+			// If there isn't a timing that fits the difficulty requirement,
+			// abort now.
+			if (validTimings.length < 1) {
+				trace("aborting piston generation because no valid timing exists");
+				return null;
+			}
+
+			var timing:Int = validTimings[random.int(0, validTimings.length - 1)];
+
+			var allDirections:Array<Direction> = Type.allEnums(Direction);
+			random.shuffle(allDirections);
+
+			for (direction in allDirections) {
 				if (mapSegment.isWithinBounds(location.manipulate(direction), BeatUtils.minimumBeat(mapSegment.offsetY))
 				&& !mapSegment.isOccupied(location.manipulate(direction))) {
-					return new Piston(location, direction);
+					return new Piston(location, direction, timing);
 				}
 			}
 		}

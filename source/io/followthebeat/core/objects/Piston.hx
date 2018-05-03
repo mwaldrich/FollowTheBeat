@@ -65,15 +65,14 @@ class Piston implements IHazard {
 	}
 
 	public function isDamaging(location:Coordinate, beat:Int):Bool {
-		return (this.location.equals(location))
-			|| (this.isExtended(beat) && extendedLocation.equals(location));
+		return (this.isExtended(beat) && extendedLocation.equals(location));
 	}
 
 	public function getDamagedLocations(beat:Int):Array<Coordinate> {
 		if (this.isExtended(beat)) {
-			return [this.location, this.extendedLocation];
+			return [this.extendedLocation];
 		} else {
-			return [this.location];
+			return [];
 		}
 	}
 
@@ -102,28 +101,25 @@ class Piston implements IHazard {
 	}
 
 	public function getDifficulty():Float {
-		return 1 + (1 / timing);
+		return 1 / timing;
 	}
 
 	public function getDifficultyBetweenRows(minY:Int, maxY:Int):Float {
-		var accumulatedDifficulty:Float = 0.0;
-
-		// Which parts of this Piston fall between the given rows?
-
-		// Piston base
-		if (this.location.isBetweenRows(minY, maxY)) {
-			accumulatedDifficulty += 1.0;
-		}
-
 		// Extended piston head
 		if (this.extendedLocation.isBetweenRows(minY, maxY)) {
-			accumulatedDifficulty += (1 / timing);
+			return this.getDifficulty();
+		} else {
+			return 0;
 		}
-
-		return accumulatedDifficulty;
 	}
 
 	public function generateGameHazard():AGameHazard {
 		return new GamePiston(this);
+	}
+
+	public function toString():String {
+		return "Piston(location: " + this.location + ", direction: "
+			+ this.direction + ", timing: " + this.timing +
+			", offset: " + this.offset + ")";
 	}
 }

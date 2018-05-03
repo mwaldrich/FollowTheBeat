@@ -33,14 +33,19 @@ class RhythmBombGenerator implements IHazardGenerator {
 		// inherent lower and upper bounds are 0.25 and 0.5,
 		// respectively.
 
-		if (minDifficulty <= 0.25 && maxDifficulty > 0.25 && !mapSegment.isOccupied(location)) {
-			var timing:Int;
+		if (minDifficulty <= 0.25 && !mapSegment.isOccupied(location)) {
+			var validTimings:Array<Int> = [1, 2, 4].filter(function(i:Int) {
+				return maxDifficulty >= (1 / i);
+			});
 
-			if (maxDifficulty > 0.5) {
-				timing = (random.bool()) ? 2 : 4;
-			} else {
-				timing = 2;
+			// If there isn't a timing that fits the difficulty requirement,
+			// abort now.
+			if (validTimings.length < 1) {
+				trace("aborting piston generation because no valid timing exists");
+				return null;
 			}
+
+			var timing:Int = validTimings[random.int(0, validTimings.length - 1)];
 
 			return new RhythmBomb(location, timing);
 		} else {

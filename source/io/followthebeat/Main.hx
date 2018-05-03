@@ -55,11 +55,7 @@ class Main extends Sprite {
 		super();
 
 		// Initialize FlxRandom
-		random = new FlxRandom(1);
-
-		// Initialize exampleSegment1
-		exampleSegment1 = MapSegmentGeneratorBeta.generateMapSegment(0, 3, 8, 6.0, random);
-		exampleSegment2 = MapSegmentGeneratorBeta.generateMapSegment(0, 3, 8, 2.0, random);
+		random = new FlxRandom();
 
 		addChild(new FlxGame(0, 0, MenuState, true));
 	}

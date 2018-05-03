@@ -52,7 +52,7 @@ class MapSegmentGeneratorBeta {
 
 		trace("start: " + start + "; end = " + end + "; difficulty: " + difficulty + "; consistency = " + consistency);
 
-		if ((end - start) <= consistency) {
+		if ((end - start) <= consistency || difficulty <= 0.5) {
 			trace("hit base case in MSGb#generate; start: " + start + "; end = " + end + "; difficulty: " + difficulty + "; consistency = " + consistency);
 			while (true) {
 				trace("adding a hazard in base case");
@@ -63,7 +63,12 @@ class MapSegmentGeneratorBeta {
 					trace("finished base case");
 					break;
 				} else {
-					addRandomHazard(mapSegment, start, end, difficulty, path, random);
+					try {
+						addRandomHazard(mapSegment, start, end, difficulty, path, random);
+					} catch (message:String) {
+						// ugh
+						break;
+					}
 				}
 			}
 		} else {
@@ -82,7 +87,18 @@ class MapSegmentGeneratorBeta {
 		end:Int, maxDifficulty:Float, path:List<Coordinate>,
 		random:FlxRandom):Void {
 
+		var counter:Int = 0;
+
 		while (true) {
+			if (counter > 100) {
+				// I am aware this is super-duper hacky
+				throw "nope";
+			}
+
+			counter++;
+			trace("begin addRandomHazard loop. start=" + start + "; end=" + end + "; maxDifficulty=" + maxDifficulty + "; current difficulty: " + segment.getDifficultyBetweenRows(start, end) + "; current map segment:");
+			trace(segment);
+
 			var newCoordinate = Coordinate.generateRandomCoordinate(0, start, segment.width, end, random);
 
 			// TODO: don't make this 0.25
@@ -151,7 +167,7 @@ class MapSegmentGeneratorBeta {
 
 		while (path.last().y < topOfSegment) {
 			path.add(getRandomPlayerNeighbor(path.last(), offsetY, width,
-			    height, path.length - 1, random));
+			    height, offsetY * 4 + path.length - 1, random));
 
 			trace(path.join("; "));
 		}
@@ -165,6 +181,8 @@ class MapSegmentGeneratorBeta {
 
 		var neighbors:Array<Coordinate> = playerNeighbors(coordinate, offsetY,
 		    width, height, beat);
+
+		trace("getRandomPlayerNeighbor: coordinate=" + coordinate + "; offsetY=" + offsetY + "; width=" + width + "; height=" + height + "; beat=" + beat + "; neighbors=" + neighbors.join(";"));
 
 		// List doesn't support the `get` operation...
 

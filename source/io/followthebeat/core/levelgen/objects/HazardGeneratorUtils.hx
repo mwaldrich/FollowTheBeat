@@ -23,13 +23,13 @@ import io.followthebeat.core.map.MapSegment;
 
 class HazardGeneratorUtils {
 
-	private static var generators = [new RhythmBombGenerator()]; // , new PistonGenerator()];
+	private static var generators = [new RhythmBombGenerator() , new PistonGenerator()];
 
 	// Generates a random hazard within the given range of difficulties.
 	// As always, the lower bound is inclusive and the upper bound
 	// exclusive. This may return null.
 	public static function generateRandomHazard(location:Coordinate, minDifficulty:Float, maxDifficulty:Float, mapSegment:MapSegment, random:FlxRandom):IHazard {
-		var currentGenerator:IHazardGenerator = new RhythmBombGenerator(); // generators[random.int(generators.length)];
+		var currentGenerator:IHazardGenerator = generators[random.int(0, generators.length - 1)];
 
 		var generatedHazard = currentGenerator.generate(location, minDifficulty, maxDifficulty, mapSegment, random);
 

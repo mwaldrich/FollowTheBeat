@@ -110,10 +110,29 @@ class MapSegment {
 	}
 
 	public function toString():String {
-		var result:String = "";
+		var result:String = "MapSegment";
 
-		result += "{offsetY: " + this.offsetY + "\nwidth: " + this.width + "\nheight: " + this.height + "\nhazardList: " + this.hazardList + "\n}";
+		result += "(offsetY: " + this.offsetY + "\nwidth: " + this.width + "\nheight: " + this.height + "\nhazardList: " + this.hazardList + " visual:\n";
 
-		return result;
+		for (y in this.offsetY...(this.offsetY + this.height)) {
+			for (x in 0...this.width) {
+				var hazardFound:Bool = false;
+				for (hazard in this.hazardList) {
+					if (hazard.isOccupying(new Coordinate(x, y))) {
+						result += hazard.toString().charAt(0);
+						hazardFound = true;
+						break;
+					}
+				}
+
+				if (!hazardFound) {
+					result += ".";
+				}
+			}
+
+			result += "\n";
+		}
+
+		return result + ")";
 	}
 }

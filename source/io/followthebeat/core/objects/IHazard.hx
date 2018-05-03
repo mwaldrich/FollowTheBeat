@@ -60,10 +60,11 @@ interface IHazard {
 	// depends on the width and height of the segment
 	public function isValid(segment:MapSegment, beat:Int):Bool;
 
-	// What is the difficulty of this hazard? This is determined
-	// by the following formula:
+	// What is the difficulty of this hazard? This is determined by the
+	// following formula (where n = amount of beats in map segment):
 	//
-	// sum_i=0^n chance-of-blocking_i
+	// For all coordinates c:
+	//     1 / (sum_i=0^n isDamaging(c, i))
 	//
 	// Essentially, this is the sum (for all tiles this hazard will
 	// block) of the percentage of the time that tile is blocked.
@@ -83,4 +84,7 @@ interface IHazard {
 
 	// Generates a GameHazard that corresponds with this Hazard.
 	public function generateGameHazard():AGameHazard;
+
+	// Returns a string representation of this hazard.
+	public function toString():String;
 }

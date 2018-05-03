@@ -22,6 +22,7 @@ import flixel.system.FlxSound;
 import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
 
+import io.followthebeat.core.levelgen.map.MapSegmentGeneratorBeta;
 import io.followthebeat.core.map.MapSegment;
 import io.followthebeat.core.map.Coordinate;
 import io.followthebeat.core.map.Direction;
@@ -51,9 +52,7 @@ class SingleplayerState extends FlxState implements IContinuousGameMap implement
 
 		segments = new List<GameMapSegment>();
 
-		// TODO: don't do this
-		segments.add(new GameMapSegment(Main.exampleSegment1));
-		segments.add(new GameMapSegment(Main.exampleSegment2));
+		addGeneratedMapSegment();
 
 		segmentsToRender = new FlxTypedGroup<GameMapSegment>();
 		add(segmentsToRender);
@@ -114,6 +113,16 @@ class SingleplayerState extends FlxState implements IContinuousGameMap implement
 
 	public function addMapSegment(mapSegment:GameMapSegment):Void {
 		this.segments.add(mapSegment);
+	}
+
+	private function addGeneratedMapSegment():Void {
+		addMapSegment(new GameMapSegment(
+			MapSegmentGeneratorBeta.generateMapSegment(
+				this.segments.length * Main.segmentHeight,
+				Main.segmentWidth,
+				Main.segmentHeight,
+				this.segments.length + 2,
+				Main.random)));
 	}
 
 	// Updates `segmentsToRender` to only include segments that
@@ -184,8 +193,15 @@ class SingleplayerState extends FlxState implements IContinuousGameMap implement
 		// Process the beat for the player
 		player.beat(this.currentBeat);
 
+		updateContinuousLevel();
 		updateSegmentsToRender();
 		updateCameraPosition();
+	}
+
+	private function updateContinuousLevel():Void {
+		if (this.currentBeat % Main.songLength == (Main.songLength / 2)) {
+			this.addGeneratedMapSegment();
+		}
 	}
 
 	private function updateCameraPosition():Void {
