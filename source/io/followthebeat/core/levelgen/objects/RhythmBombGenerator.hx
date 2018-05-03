@@ -41,7 +41,7 @@ class RhythmBombGenerator implements IHazardGenerator {
 			// If there isn't a timing that fits the difficulty requirement,
 			// abort now.
 			if (validTimings.length < 1) {
-				trace("aborting piston generation because no valid timing exists");
+				trace("aborting rhythm bomb generation because no valid timing exists");
 				return null;
 			}
 
