@@ -24,6 +24,7 @@ set -ev
 case $TRAVIS_OS_NAME in
 linux)
 	haxelib run lime build android
+	haxelib run lime build html5
 	haxelib run lime build linux
 	haxelib run lime build windows
 	;;
