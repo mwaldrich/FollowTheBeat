@@ -22,6 +22,7 @@ os:
 cache:
   directories:
   - "/home/travis/haxe/lib"
+  - "/home/travis/build/mwaldrich/FollowTheBeat/export"
 before_install:
   sudo -E ./travis/before_install.sh
 install:
