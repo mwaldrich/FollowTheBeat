@@ -20,6 +20,7 @@
 set -ev
 
 echo $(haxelib config)
-haxelib --always install flixel
+haxelib --always --quiet install flixel
+haxelib --always --quiet install lime
+haxelib --always --quiet install openfl
 yes | haxelib run lime setup
-haxelib --always set hxcpp 3.4.64

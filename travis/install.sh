@@ -50,10 +50,7 @@ linux)
 	export ANDROID_NDK_HOME=$ANDROID_NDK
 	export PATH=$PATH:$ANDROID_NDK
 
-	# Install Apache Ant
-	sudo apt-get install -y ant
-
-	printf "n\nn\nn\nn\n$ANDROID_HOME\n$ANDROID_NDK\n$ANT_HOME\n/usr/lib/jvm/java-1.8.0-openjdk-amd64\n" | haxelib run lime setup android
+	printf "$ANDROID_HOME\n$ANDROID_NDK\n/usr/lib/jvm/java-1.8.0-openjdk-amd64\n" | haxelib run lime setup android
 	;;
 osx)
 	./travis/install_haxeflixel.sh
