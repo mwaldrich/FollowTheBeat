@@ -19,11 +19,12 @@ package io.followthebeat.game.states;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
-import flixel.ui.FlxButton;
 import flixel.FlxG;
 import flixel.math.FlxRandom;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+
+import io.followthebeat.game.ui.ScaledFlxButton;
 
 class SingleplayerGameOverState extends FlxState {
 
@@ -34,8 +35,8 @@ class SingleplayerGameOverState extends FlxState {
 	private var textYouLost:FlxText;
 	private var textBeatsSurvived:FlxText;
 
-	private var restartButton:FlxButton;
-	private var quitButton:FlxButton;
+	private var restartButton:ScaledFlxButton;
+	private var quitButton:ScaledFlxButton;
 
 	public function new(beatsSurvived:Int) {
 		super();
@@ -61,9 +62,7 @@ class SingleplayerGameOverState extends FlxState {
 		textBeatsSurvived.screenCenter(FlxAxes.X);
 		add(textBeatsSurvived);
 
-		restartButton = new FlxButton(0, 0, "Restart", restartSingleplayer);
-		restartButton.x = (FlxG.width / 2) - restartButton.width;
-		restartButton.y = FlxG.height - restartButton.height - 40;
+		restartButton = new ScaledFlxButton(0, FlxG.height * 3 / 4, FlxG.width, FlxG.height / 4, "Restart", 60, restartSingleplayer);
 		add(restartButton);
 	}
 
