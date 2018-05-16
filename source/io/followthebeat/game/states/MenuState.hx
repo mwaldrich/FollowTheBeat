@@ -69,9 +69,10 @@ class MenuState extends FlxState {
 		playButton.y = FlxG.height * 3 / 4;
 		playButton.updateHitbox();
 		var playButtonFontSize:Int = 60;
-		var label:FlxText = new FlxText(0, 0, 0, "Play", playButtonFontSize);
-		var labelY:Float = Std.int(playButton.y + playButton.height / 2 - label.height / 2);
-		label = new FlxText(0, labelY, playButton.width, "Play", playButtonFontSize);
+		var labelPadding:Float = 20;
+		var labelHeight:Float = playButtonFontSize + labelPadding;
+		var labelY:Float = playButton.y + playButton.height / 2 - labelHeight / 2;
+		var label:FlxText = new FlxText(0, labelY, playButton.width, "Play", playButtonFontSize);
 		label.alignment = FlxTextAlign.CENTER;
 		add(playButton);
 		add(label);
