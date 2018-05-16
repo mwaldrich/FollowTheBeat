@@ -22,12 +22,10 @@ import flixel.text.FlxText;
 class ScaledFlxButton extends FlxSpriteGroup {
 	public function new(x:Float, y:Float, width:Float, height:Float, text:String, fontSize:Int, onClick:Void->Void) {
 		super();
-		var button:FlxButton = new FlxButton(0, 0, onClick);
+		var button:FlxButton = new FlxButton(x, y, onClick);
 		var oldWidth:Float = button.width;
 		var oldHeight:Float = button.height;
 		button.scale.set(width / oldWidth, height / oldHeight);
-		button.x = x;
-		button.y = y;
 		button.updateHitbox();
 		var labelHeight:Float = fontSize + 20;
 		var labelY:Float = y + height / 2 - labelHeight / 2;
