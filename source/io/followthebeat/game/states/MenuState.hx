@@ -59,29 +59,22 @@ class MenuState extends FlxState {
 		text3.screenCenter(FlxAxes.X);
 		add(text3);
 
-		playButton = new FlxButton(0, 0, "Play", playSingleplayer);
-		// playButton.setGraphicSize(100, Std.int(FlxG.height / 8));
-		/*playButton.scale.x = 3;
-		  playButton.scale.y = 3;*/
-		playButton.x = (FlxG.width / 3) - playButton.width;
-		playButton.y = FlxG.height - playButton.height - 40;
-		/* var lastWidth:Float = playButton.width;
-		   var lastHeight:Float = playButton.height;
-		   playButton.updateHitbox();
-		   playButton.x -= (playButton.width - lastWidth) / 2;
-		   playButton.y -= (playButton.height - lastHeight) / 2;
-
-		   playButton.label.scale.x = 3;
-		   playButton.label.scale.y = 3;
-		   // playButton.updateHitbox();
-		   /*playButton.x = (FlxG.width / 3) - (playButton.width / 2);
-		   playButton.y = (FlxG.height - playButton.y - 10);*/
-
-		/*playButton.label = new FlxText(0, 0, "Singleplayer", 50);
-		  playButton.x = (FlxG.width / 3) - playButton.width;
-		  playButton.y = FlxG.height - playButton.height - 40;
-		  playButton.updateHitbox();*/
+		playButton = new FlxButton(0, 0, playSingleplayer);
+		var oldButtonWidth:Float = playButton.width;
+		var oldButtonHeight:Float = playButton.height;
+		var newButtonWidth:Float = FlxG.width;
+		var newButtonHeight:Float = FlxG.height / 4;
+		playButton.scale.set(newButtonWidth / oldButtonWidth, newButtonHeight / oldButtonHeight);
+		playButton.x = 0;
+		playButton.y = FlxG.height * 3 / 4;
+		playButton.updateHitbox();
+		var playButtonFontSize:Int = 60;
+		var label:FlxText = new FlxText(0, 0, 0, "Play", playButtonFontSize);
+		var labelY:Float = Std.int(playButton.y + playButton.height / 2 - label.height / 2);
+		label = new FlxText(0, labelY, playButton.width, "Play", playButtonFontSize);
+		label.alignment = FlxTextAlign.CENTER;
 		add(playButton);
+		add(label);
 	}
 
 	public override function update(elapsed:Float):Void {
