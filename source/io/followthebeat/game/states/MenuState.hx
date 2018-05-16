@@ -18,11 +18,12 @@ package io.followthebeat.game.states;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
-import flixel.ui.FlxButton;
 import flixel.FlxG;
 import flixel.math.FlxRandom;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+
+import io.followthebeat.game.ui.ScaledFlxButton;
 
 class MenuState extends FlxState {
 	private var background:FlxSprite;
@@ -31,8 +32,8 @@ class MenuState extends FlxState {
 	private var text2:FlxText;
 	private var text3:FlxText;
 
-	private var playButton:FlxButton;
-	private var quitButton:FlxButton;
+	private var playButton:ScaledFlxButton;
+	private var quitButton:ScaledFlxButton;
 
 	public override function create():Void {
 		FlxG.camera.fade(FlxColor.BLACK, .33, true);
@@ -59,23 +60,8 @@ class MenuState extends FlxState {
 		text3.screenCenter(FlxAxes.X);
 		add(text3);
 
-		playButton = new FlxButton(0, 0, playSingleplayer);
-		var oldButtonWidth:Float = playButton.width;
-		var oldButtonHeight:Float = playButton.height;
-		var newButtonWidth:Float = FlxG.width;
-		var newButtonHeight:Float = FlxG.height / 4;
-		playButton.scale.set(newButtonWidth / oldButtonWidth, newButtonHeight / oldButtonHeight);
-		playButton.x = 0;
-		playButton.y = FlxG.height * 3 / 4;
-		playButton.updateHitbox();
-		var playButtonFontSize:Int = 60;
-		var labelPadding:Float = 20;
-		var labelHeight:Float = playButtonFontSize + labelPadding;
-		var labelY:Float = playButton.y + playButton.height / 2 - labelHeight / 2;
-		var label:FlxText = new FlxText(0, labelY, playButton.width, "Play", playButtonFontSize);
-		label.alignment = FlxTextAlign.CENTER;
+		playButton = new ScaledFlxButton(0, FlxG.height * 3 / 4, FlxG.width, FlxG.height / 4, "Play", 60, playSingleplayer);
 		add(playButton);
-		add(label);
 	}
 
 	public override function update(elapsed:Float):Void {
