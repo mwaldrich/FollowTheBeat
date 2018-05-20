@@ -33,7 +33,7 @@ class MenuState extends FlxState {
 	private var text3:FlxText;
 
 	private var playButton:ScaledFlxButton;
-	private var quitButton:ScaledFlxButton;
+	private var debugButton:ScaledFlxButton;
 
 	public override function create():Void {
 		FlxG.camera.fade(FlxColor.BLACK, .33, true);
@@ -60,8 +60,11 @@ class MenuState extends FlxState {
 		text3.screenCenter(FlxAxes.X);
 		add(text3);
 
-		playButton = new ScaledFlxButton(0, FlxG.height * 3 / 4, FlxG.width, FlxG.height / 4, "Play", 60, playSingleplayer);
+		playButton = new ScaledFlxButton(0, FlxG.height * 3 / 4 + FlxG.height / 16, FlxG.width / 2, FlxG.height / 8, "Play", Std.int(FlxG.height / 20), playSingleplayer);
 		add(playButton);
+
+		debugButton = new ScaledFlxButton(FlxG.width / 2, FlxG.height * 3 / 4 + FlxG.height / 16, FlxG.width / 2, FlxG.height / 8, "Debug", Std.int(FlxG.height / 20), openDebugMenu);
+		add(debugButton);
 	}
 
 	public override function update(elapsed:Float):Void {
@@ -70,6 +73,11 @@ class MenuState extends FlxState {
 
 	public function playSingleplayer():Void {
 		FlxG.camera.fade(FlxColor.BLACK, .33, true);
-		FlxG.switchState(new SingleplayerState());
+		FlxG.switchState(new SingleplayerState(Main.defaultSingleplayerDifficultyOffset, Main.defaultSongAsset, Main.defaultTileset));
+	}
+
+	public function openDebugMenu():Void {
+		FlxG.camera.fade(FlxColor.BLACK, .33, true);
+		FlxG.switchState(new DebugMenuState());
 	}
 }

@@ -29,7 +29,7 @@ class ScaledFlxButton extends FlxSpriteGroup {
 		button.updateHitbox();
 		var labelHeight:Float = fontSize + 20;
 		var labelY:Float = y + height / 2 - labelHeight / 2;
-		var label:FlxText = new FlxText(0, labelY, width, text, fontSize);
+		var label:FlxText = new FlxText(x, labelY, width, text, fontSize);
 		label.alignment = FlxTextAlign.CENTER;
 		add(button);
 		add(label);

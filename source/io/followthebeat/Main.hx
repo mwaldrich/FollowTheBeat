@@ -20,6 +20,7 @@ import openfl.display.Sprite;
 import flixel.FlxGame;
 import flixel.FlxG;
 import flixel.math.FlxRandom;
+import flixel.system.FlxAssets;
 
 // This should only be imported TEMPORARILY.
 // Eventually we will not be creating MapSegments
@@ -46,6 +47,9 @@ class Main extends Sprite {
 	public static inline var tileEndY:Int = (tileScale * 4) + tileStartY;
 
 	public static inline var tolerance:Float = 0.75;
+	public static inline var defaultSingleplayerDifficultyOffset:Int = 2;
+	public static inline var defaultSongAsset:FlxSoundAsset = AssetPaths.song3__ogg;
+	public static inline var defaultTileset:Int = 1;
 
 	public static var random:FlxRandom;
 	public static var exampleSegment1:MapSegment;

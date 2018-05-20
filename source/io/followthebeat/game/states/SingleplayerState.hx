@@ -19,6 +19,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.system.FlxSound;
+import flixel.system.FlxAssets;
 import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
 
@@ -46,6 +47,17 @@ class SingleplayerState extends FlxState implements IContinuousGameMap implement
 	private var beatProgress:Float;
 
 	private var song:FlxSound;
+	private var songAsset:FlxSoundAsset;
+	private var tileset:Int;
+
+	private var difficultyOffset:Int;
+
+	public function new(difficultyOffset:Int, songAsset:FlxSoundAsset, tileset:Int) {
+		super();
+		this.difficultyOffset = difficultyOffset;
+		this.songAsset = songAsset;
+		this.tileset = tileset;
+	}
 
 	override public function create():Void {
 		super.create();
@@ -76,7 +88,7 @@ class SingleplayerState extends FlxState implements IContinuousGameMap implement
 		FlxG.camera.setPosition(0, Main.tileScale / 3);
 
 		song = new FlxSound();
-		song.loadEmbedded(AssetPaths.song3__ogg);
+		song.loadEmbedded(songAsset);
 		add(song);
 		song.play();
 	}
@@ -116,13 +128,15 @@ class SingleplayerState extends FlxState implements IContinuousGameMap implement
 	}
 
 	private function addGeneratedMapSegment():Void {
-		addMapSegment(new GameMapSegment(
-			MapSegmentGeneratorBeta.generateMapSegment(
-				this.segments.length * Main.segmentHeight,
-				Main.segmentWidth,
-				Main.segmentHeight,
-				this.segments.length + 2,
-				Main.random)));
+		addMapSegment(
+			new GameMapSegment(
+				MapSegmentGeneratorBeta.generateMapSegment(
+					this.segments.length * Main.segmentHeight,
+					Main.segmentWidth,
+					Main.segmentHeight,
+					this.segments.length + difficultyOffset,
+					Main.random),
+				tileset));
 	}
 
 	// Updates `segmentsToRender` to only include segments that
@@ -189,7 +203,14 @@ class SingleplayerState extends FlxState implements IContinuousGameMap implement
 	private function checkGameOver():Void {
 		if (this.isGameOver()) {
 			this.song.stop();
-			FlxG.switchState(new SingleplayerGameOverState(this.currentBeat));
+			FlxG.switchState(new SingleplayerGameOverState(
+				this.currentBeat,
+			    function() {
+					return new SingleplayerState(
+						difficultyOffset,
+						songAsset,
+						tileset);
+				}));
 		}
 	}
 

@@ -28,15 +28,18 @@ class GameMapSegment extends FlxGroup {
 
 	private var gameHazardList:List<AGameHazard>;
 
-	public function new(mapSegment:MapSegment) {
+	private var tileset:Int;
+
+	public function new(mapSegment:MapSegment, tileset:Int) {
 		super();
 
 		this.mapSegment = mapSegment;
 
+		this.tileset = tileset;
+
 		tilemap = new FlxTilemap();
 
-		tilemap.loadMapFromCSV("1,1,1,\n1,1,1,\n1,1,1,\n1,1,1\n"
-		+ "1,1,1,\n1,1,1,\n1,1,1,\n1,1,1", AssetPaths.tile__png, 32, 32);
+		tilemap.loadMapFromCSV(this.generateMapDataString(), AssetPaths.tile__png, 32, 32);
 
 		tilemap.scale.x = Main.tileScale / 32;
 		tilemap.scale.y = Main.tileScale / 32;
@@ -77,5 +80,19 @@ class GameMapSegment extends FlxGroup {
 				add(piece);
 			}
 		}
+	}
+
+	private function generateMapDataString():String {
+		var accumulator:String = "";
+
+		for (y in 0...8) {
+			for (x in 0...3) {
+				accumulator += "" + tileset + ",";
+			}
+
+			accumulator += "\n";
+		}
+
+		return accumulator;
 	}
 }

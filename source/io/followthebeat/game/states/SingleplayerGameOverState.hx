@@ -36,12 +36,15 @@ class SingleplayerGameOverState extends FlxState {
 	private var textBeatsSurvived:FlxText;
 
 	private var restartButton:ScaledFlxButton;
-	private var quitButton:ScaledFlxButton;
+	private var menuButton:ScaledFlxButton;
 
-	public function new(beatsSurvived:Int) {
+	private var replayConstructor:Void->FlxState;
+
+	public function new(beatsSurvived:Int, replayConstructor:Void->FlxState) {
 		super();
 
 		this.beatsSurvived = beatsSurvived;
+		this.replayConstructor = replayConstructor;
 	}
 
 	public override function create():Void {
@@ -62,8 +65,11 @@ class SingleplayerGameOverState extends FlxState {
 		textBeatsSurvived.screenCenter(FlxAxes.X);
 		add(textBeatsSurvived);
 
-		restartButton = new ScaledFlxButton(0, FlxG.height * 3 / 4, FlxG.width, FlxG.height / 4, "Restart", 60, restartSingleplayer);
+		restartButton = new ScaledFlxButton(0, FlxG.height * 3 / 4 + FlxG.height / 16, FlxG.width / 2, FlxG.height / 4 / 2, "Restart", 30, restartSingleplayer);
 		add(restartButton);
+
+		menuButton = new ScaledFlxButton(FlxG.width / 2, FlxG.height * 3 / 4 + FlxG.height / 16, FlxG.width / 2, FlxG.height / 4 / 2, "Menu", 30, goToMenu);
+		add(menuButton);
 	}
 
 	public override function update(elapsed:Float):Void {
@@ -72,6 +78,11 @@ class SingleplayerGameOverState extends FlxState {
 
 	public function restartSingleplayer():Void {
 		FlxG.camera.fade(FlxColor.BLACK, .33, true);
-		FlxG.switchState(new SingleplayerState());
+		FlxG.switchState(this.replayConstructor());
+	}
+
+	public function goToMenu():Void {
+		FlxG.camera.fade(FlxColor.BLACK, .33, true);
+		FlxG.switchState(new MenuState());
 	}
 }
