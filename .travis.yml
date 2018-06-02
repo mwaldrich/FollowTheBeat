@@ -34,8 +34,7 @@ before_deploy:
 deploy:
   # Deploy to GitHub Releases
   - provider: releases
-    api_key:
-      secure: FViyItrbNNKejz1qHggiIWkSscWZR0lhfFGS6kaWn135CoH16XdE+eotPUDO2DGs+toQDQK+ZuX9Ipqn8tA3pyS4DYpQJLCBweeU0obiGTVoT4eHtI0+ImHvZ5799zCvXGf5Uyzo565dayrl4cXtDNE0DNF6u7pY/jEY8DHCThCARNEA54JBak/FXAORzTAPjFClhgGrSyQJ4aF3z9TzoBhBP/V9fbK1LjM2cRy44VML9uSz7Jxn+epHgW/qknT+j6zqehleWWLtJS0oSTqQhFGP6Ik5sZ8C/kciumRg7OfTKgybUvvUj0UH9G7+gNMhnt0LDU3QvdMt4CGHcUPmwhgkgNKzB2hbFmjEGY0hqlxP7y6nx2N7rKtxf6kfbyM7zXDirS2+rMyGzdnd46y5j9RdJ4Rnh/L8a58Z3KMknvl/ckE6qfA1WOd3vc5ThfuhmGCFPDwjHOteb/2fWc21b0TiXmvfbgIR5Ul+BTCaXFkn7lQdRahugrgJGvv4x86TAft5YHtkbMfwqGLrHBf2wVDKy/M2rXr83PNvGZtKbcNWVRrltkgn5v9Ju67s2ZAR/zFl7w511gikOhmP6imQ+4115p03ONdXsJguIxdc0eUkw/zKvtpuaUUBhyAOh6GZRDVIBvDz+yrvM9iyOm7Ax0aam1AY1KwPxDD8zbSzdOU=
+    api_key: $GITHUB_TOKEN
     file_glob: true
     file:
       - export/android/bin/*.apk
@@ -52,8 +51,7 @@ deploy:
       - rm -f export/neko/dist/FollowTheBeat*.zip
   # Deploy to GitHub Pages
   - provider: pages
-    github-token:
-      secure: FViyItrbNNKejz1qHggiIWkSscWZR0lhfFGS6kaWn135CoH16XdE+eotPUDO2DGs+toQDQK+ZuX9Ipqn8tA3pyS4DYpQJLCBweeU0obiGTVoT4eHtI0+ImHvZ5799zCvXGf5Uyzo565dayrl4cXtDNE0DNF6u7pY/jEY8DHCThCARNEA54JBak/FXAORzTAPjFClhgGrSyQJ4aF3z9TzoBhBP/V9fbK1LjM2cRy44VML9uSz7Jxn+epHgW/qknT+j6zqehleWWLtJS0oSTqQhFGP6Ik5sZ8C/kciumRg7OfTKgybUvvUj0UH9G7+gNMhnt0LDU3QvdMt4CGHcUPmwhgkgNKzB2hbFmjEGY0hqlxP7y6nx2N7rKtxf6kfbyM7zXDirS2+rMyGzdnd46y5j9RdJ4Rnh/L8a58Z3KMknvl/ckE6qfA1WOd3vc5ThfuhmGCFPDwjHOteb/2fWc21b0TiXmvfbgIR5Ul+BTCaXFkn7lQdRahugrgJGvv4x86TAft5YHtkbMfwqGLrHBf2wVDKy/M2rXr83PNvGZtKbcNWVRrltkgn5v9Ju67s2ZAR/zFl7w511gikOhmP6imQ+4115p03ONdXsJguIxdc0eUkw/zKvtpuaUUBhyAOh6GZRDVIBvDz+yrvM9iyOm7Ax0aam1AY1KwPxDD8zbSzdOU=
+    github-token: $GITHUB_TOKEN
     local-dir: export/html5/bin
     fqdn: followthebeat.io
     project-name: FollowTheBeat
