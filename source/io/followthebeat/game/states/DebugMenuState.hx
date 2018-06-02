@@ -109,6 +109,7 @@ class DebugMenuState extends FlxState {
 		// Get real song asset from songName
 		var songAsset:FlxSoundAsset =
 			switch (song) {
+				case 0: AssetPaths.practice__ogg;
 				case 1: AssetPaths.song1__ogg;
 				case 2: AssetPaths.song2__ogg;
 				case 3: AssetPaths.song3__ogg;
