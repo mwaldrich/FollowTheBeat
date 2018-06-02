@@ -26,7 +26,7 @@ linux)
 	./travis/install_haxeflixel.sh
 
 	# Install JDK
-	sudo apt-get install -y openjdk-8-jdk
+	sudo apt-get install -qq -y openjdk-8-jdk
 	sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
 	echo $(java -version)
 
@@ -35,7 +35,7 @@ linux)
 	mkdir $ANDROID_HOME
 	# SDK version must be >= 25.2.3 for sdkmanager and < 25.3.0 for tools/ant
 	# This is one of the few versions that actually works :)
-	wget http://dl-ssl.google.com/android/repository/tools_r25.2.3-linux.zip
+	wget --no-verbose http://dl-ssl.google.com/android/repository/tools_r25.2.3-linux.zip
 	unzip -q tools_r25.2.3-linux.zip
 	mv tools $ANDROID_HOME
 	export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
@@ -44,7 +44,7 @@ linux)
 	sdkmanager "platforms;android-19"
 
 	# Install Android NDK
-	wget https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip
+	wget --no-verbose https://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip
 	unzip -q android-ndk-r13b-linux-x86_64.zip
 	export ANDROID_NDK=$(pwd)/android-ndk-r13b
 	export ANDROID_NDK_HOME=$ANDROID_NDK
